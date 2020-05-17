@@ -1,0 +1,28 @@
+Xft.dpi: 108
+Xft.antialias: true
+Xft.hinting: true
+Xft.rgba: rgb
+Xft.autohint: true
+Xft.hintstyle: hintfull
+Xft.lcdfilter: lcdfilter
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!         URxvt        !!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+URxvt*imLocale: en_CA.UTF-8
+URxvt*termName: rxvt-unicode-256color
+URxvt*buffered: false
+URxvt.intensityStyles: false
+URxvt.font: xft: Mononoki Nerd Font:size=11
+URxvt.saveLines: 2000
+URxvt.scrollBar: false
+
+! Extensions
+URxvt.perl-ext-common: default,clipboard,beamCursor
+URxvt.url-select.launcher:  /usr/bin/firefox
+URxvt.clipboard.autocopy: true
+
+#include ".Xresources.d/dracula"
+*fading: 35
+*fadeColor: #2E3440

@@ -73,8 +73,15 @@ for i in groups:
         # Key([mod, "shift"], i.name, lazy.window.togroup(i.name)),
     ])
 
+    ##### DEFAULT THEME SETTINGS FOR LAYOUTS #####
+layout_theme = {"border_width": 2,
+                "margin": 6,
+                "border_focus": "bd93f9",
+                "border_normal": "1D2330"
+                }
+
 layouts = [
-    layout.MonadTall(),
+    layout.MonadTall(**layout_theme),
     layout.MonadWide(),
     layout.Max(),
     # layout.Stack(num_stacks=2),
@@ -149,13 +156,4 @@ floating_layout = layout.Floating(float_rules=[
 ])
 auto_fullscreen = True
 focus_on_window_activation = "smart"
-
-# XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
-# string besides java UI toolkits; you can see several discussions on the
-# mailing lists, GitHub issues, and other WM documentation that suggest setting
-# this string if your java app doesn't work correctly. We may as well just lie
-# and say that we're a working one by default.
-#
-# We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
-# java that happens to be on java's whitelist.
 wmname = "Qtile"
