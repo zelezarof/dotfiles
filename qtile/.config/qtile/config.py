@@ -74,33 +74,22 @@ for i in groups:
     ])
 
     ##### DEFAULT THEME SETTINGS FOR LAYOUTS #####
-layout_theme = {"border_width": 2,
-                "margin": 6,
-                "border_focus": "bd93f9",
-                "border_normal": "1D2330"
-                }
+layout_theme = {
+    "border_width": 2,
+    "margin": 6,
+    "border_focus": "BD93F9",
+    "border_normal": "1D2330"
+}
 
 layouts = [
     layout.MonadTall(**layout_theme),
-    layout.MonadWide(),
-    layout.Max(),
-    # layout.Stack(num_stacks=2),
-    # Try more layouts by unleashing below layouts.
-    # layout.Bsp(),
-    # layout.Columns(),
-    # layout.Matrix(),
-    # layout.MonadTall(),
-    # layout.MonadWide(),
-    # layout.RatioTile(),
-    # layout.Tile(),
-    # layout.TreeTab(),
-    # layout.VerticalTile(),
-    # layout.Zoomy(),
+    layout.MonadWide(**layout_theme),
+    layout.Max(**layout_theme)
 ]
 
 widget_defaults = dict(
-    font='sans',
-    fontsize=12,
+    font='Ubuntu',
+    fontsize=14,
     padding=3,
 )
 extension_defaults = widget_defaults.copy()

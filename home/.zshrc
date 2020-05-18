@@ -1,3 +1,14 @@
+source /usr/share/zsh/share/antigen.zsh
+    # Load oh-my-zsh's library
+    antigen use oh-my-zsh
+
+    # Load bundles from oh-my-zsh's repo
+    antigen bundle git
+    antigen bundle pipenv
+    antigen bundle pip
+antigen apply
+
+
 neofetch
 export PATH="$HOME/.local/bin:$PATH"
 export VISUAL=nvim
