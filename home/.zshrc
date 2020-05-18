@@ -1,0 +1,26 @@
+neofetch
+export PATH="$HOME/.local/bin:$PATH"
+export VISUAL=nvim
+export EDITOR="$VISUAL" 
+
+# navigation
+alias ..='cd ..' 
+alias ...='cd ../..'
+
+# udiskie
+alias usb-mount="udiskie-mount"
+alias usb-umount="udiskie-umount"
+
+# vim
+alias vim=nvim
+
+# ls
+alias ls='exa'
+
+# adding flags
+alias cp="cp -i"                          # confirm before overwriting something
+alias df='df -h'                          # human-readable sizes
+alias free='free -m'                      # show sizes in MB
+
+### SETS VI MODE ###
+bindkey -v
