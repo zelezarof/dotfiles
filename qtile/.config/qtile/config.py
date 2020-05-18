@@ -42,8 +42,8 @@ keys = [
     Key([mod, "shift"], "k", lazy.layout.shuffle_up()),
 
     # Grow / Shrink windows
-    Key([mod, "control"], "j", lazy.layout.shrink()),
-    Key([mod, "control"], "k", lazy.layout.grow()),
+    Key([mod], "h", lazy.layout.shrink()),
+    Key([mod], "l", lazy.layout.grow()),
 
     # Swap panes of split stack
     Key([mod, "shift"], "space", lazy.layout.rotate()),
@@ -134,7 +134,7 @@ mouse = [
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: List
 main = None
-follow_mouse_focus = True
+follow_mouse_focus = False
 bring_front_click = False
 cursor_warp = False
 floating_layout = layout.Floating(float_rules=[
