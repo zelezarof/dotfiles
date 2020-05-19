@@ -39,6 +39,8 @@ augroup numbertoggle
   autocmd BufLeave,FocusLost,InsertEnter * set norelativenumber
 augroup END
 
+" Use X Window's clipbard as main register
+set clipboard=unnamedplus
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                           Key Re-Mapping                                     "
