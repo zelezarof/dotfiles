@@ -55,7 +55,7 @@ keys = [
     Key([mod, "shift"], "r", lazy.restart()),
     Key([mod, "shift"], "q", lazy.shutdown()),
     
-    Key([mod], "Return", lazy.spawn("urxvt")),
+    Key([mod], "Return", lazy.spawn("urxvtc")),
     Key([mod, "shift"], "Return", lazy.spawn("dmenu_run -p 'Run: '")),
 ]
 
