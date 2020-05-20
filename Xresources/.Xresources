@@ -25,4 +25,4 @@ URxvt.perl-ext-common: default,clipboard
 URxvt.url-select.launcher:  /usr/bin/firefox
 URxvt.clipboard.autocopy: true
 
-#include ".Xresources.d/dracula"
+#include ".Xresources.d/flat-remix"

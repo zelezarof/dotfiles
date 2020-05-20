@@ -1,0 +1,37 @@
+! Flat Remix
+*background:  #272a34
+*foreground:  #FFFFFF
+*.cursorColor:  #FFFFFF
+
+! Black
+*color0:  #1F2229
+*color8:  #8C42AB
+
+! Red
+*color1:  #D41919
+*color9:  #EC0101
+
+! Green
+*color2:  #5EBDAB
+*color10: #69FF94
+
+! Yellow
+*color3:  #FEA44C
+*color11:  #FF8A18
+
+! Blue
+*color4:  #367bf0
+*color12:  #277FFF
+
+! Magenta
+*color5:  #BF2E5D
+*color13:  #D71655
+
+! Cyan
+*color6:  #49AEE6
+*color14:  #05A1F7
+
+! White
+*color7:  #E6E6E6
+*color15:  #FFFFFF
+

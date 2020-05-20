@@ -12,7 +12,7 @@ if dein#load_state('/home/zelezarof/.cache/dein')
   call dein#begin('/home/zelezarof/.cache/dein')
   call dein#add('/home/zelezarof/.cache/dein/repos/github.com/Shougo/dein.vim')
 
-  " Add or remove your plugins here like this:
+  " Plugins
   call dein#add('tmhedberg/SimplyFold')
   call dein#add('vim-scripts/indetpython.vim')
 
