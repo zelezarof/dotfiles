@@ -35,3 +35,6 @@ alias free='free -m'                      # show sizes in MB
 
 ### SETS VI MODE ###
 bindkey -v
+
+# GPG
+export GPG_TTY=$(tty)

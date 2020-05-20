@@ -1,3 +1,10 @@
 [user]
 	name = Jose Manuel Zelezarof
 	email = zelezarof@gmail.com
+	signingkey = D250E1CD3198F3BB
+
+[commit]
+	gpgsign = true
+
+[gpg]
+	program = gpg2
