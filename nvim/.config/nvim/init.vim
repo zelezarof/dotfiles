@@ -12,8 +12,18 @@ call plug#begin('~/.local/share/nvim')
    Plug 'Vimjas/vim-python-pep8-indent'
    Plug 'Valloric/YouCompleteMe'
    Plug 'vim-airline/vim-airline'
+   Plug 'chriskempson/base16-vim'
 call plug#end()
 
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                              Base16 Theme                                     "
+"                                                                              "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if filereadable(expand("~/.vimrc_background"))
+    let base16colorspace=256
+    source ~/.vimrc_background
+endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                              My Settings                                     "
