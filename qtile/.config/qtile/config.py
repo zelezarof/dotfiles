@@ -75,9 +75,9 @@ for i in groups:
 
     ##### DEFAULT THEME SETTINGS FOR LAYOUTS #####
 layout_theme = {
-    "border_width": 2,
-    "margin": 6,
-    "border_focus": "367bf0",
+    "border_width": 4,
+    "margin": 8,
+    "border_focus": "8ec07c",
     "border_normal": "1D2330"
 }
 
