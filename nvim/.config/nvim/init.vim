@@ -5,14 +5,15 @@ set guicursor=
 "                                                                              "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.local/share/nvim')
-   " Python 
-   Plug 'nvie/vim-flake8'
-   Plug 'dense-analysis/ale'
+   Plug 'chriskempson/base16-vim'
+   Plug 'vim-airline/vim-airline'
+   Plug 'vim-airline/vim-airline-themes'
+   Plug 'tpope/vim-commentary'
+   Plug 'jiangmiao/auto-pairs'
    Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
    Plug 'Vimjas/vim-python-pep8-indent'
-   Plug 'Valloric/YouCompleteMe'
-   Plug 'vim-airline/vim-airline'
-   Plug 'chriskempson/base16-vim'
+   Plug 'nvie/vim-flake8'
+   Plug 'dense-analysis/ale'
 call plug#end()
 
 
@@ -24,6 +25,7 @@ if filereadable(expand("~/.vimrc_background"))
     let base16colorspace=256
     source ~/.vimrc_background
 endif
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                              My Settings                                     "
