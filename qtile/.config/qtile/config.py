@@ -78,7 +78,7 @@ layout_theme = {
     "border_width": 3,
     "margin": 9,
     "border_focus": "458588",
-    "border_normal": "1D2330"
+    "border_normal": "282828"
 }
 
 layouts = [
@@ -91,7 +91,7 @@ widget_defaults = dict(
     font="Ubuntu Mono",
     fontsize = 15,
     padding = 2,
-    background="282828",
+    background="303030",
     foreground="ebdbb2"
 )
 
@@ -103,17 +103,17 @@ screens = [
             [
                 widget.GroupBox(
                     font="Ubuntu Bold",
-                    fontsize = 11,
+                    fontsize = 12,
                     borderwidth = 3,
                     active = "ebdbb2",
                     inactive = "a89984",
                     rounded = False,
-                    highlight_color = "282828",
+                    highlight_color = "303030",
                     highlight_method = "line",
                     this_current_screen_border = "458588",
-                    other_screen_border = "282828",
-                    foreground = "282828",
-                    background = "282828"
+                    other_screen_border = "303030",
+                    foreground = "ebdbb2",
+                    background = "303030"
                 ),
                 widget.Prompt(),
                 widget.WindowName(),
