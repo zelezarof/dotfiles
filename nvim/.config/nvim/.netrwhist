@@ -1,5 +1,12 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =3
+let g:netrw_dirhistcnt =0
+let g:netrw_dirhist_0='/home/zelezarof/.config/configstore'
+let g:netrw_dirhist_9='/home/zelezarof/.local/share/nvim/plugged'
+let g:netrw_dirhist_8='/home/zelezarof/.local/share/nvim'
+let g:netrw_dirhist_7='/home/zelezarof/.config/alacritty'
+let g:netrw_dirhist_6='/home/zelezarof/go/pkg/mod/github.com/go-lintpack/lintpack@v0.5.2/checkers'
+let g:netrw_dirhist_5='/home/zelezarof/.dotfiles/compton/.config'
+let g:netrw_dirhist_4='/home/zelezarof/.dotfiles/compton'
 let g:netrw_dirhist_3='/home/zelezarof/Workspace/algorithms.bck/chapter04'
 let g:netrw_dirhist_2='/home/zelezarof/Workspace/algorithms.bck'
 let g:netrw_dirhist_1='/home/zelezarof/.dotfiles/nvim/.config/nvim/ftdetect'

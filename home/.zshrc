@@ -8,12 +8,6 @@ source /usr/share/zsh/share/antigen.zsh
     antigen bundle pip
 antigen apply
 
-# Setup Base16 Shell
-BASE16_SHELL="$HOME/.config/base16-shell/"
-[ -n "$PS1" ] && \
-    [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
-        eval "$("$BASE16_SHELL/profile_helper.sh")"
-
 neofetch
 export PATH="$HOME/.local/bin:$PATH"
 export VISUAL=nvim
