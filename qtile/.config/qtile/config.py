@@ -55,7 +55,7 @@ keys = [
     Key([mod, "shift"], "r", lazy.restart()),
     Key([mod, "shift"], "q", lazy.shutdown()),
     
-    Key([mod], "Return", lazy.spawn("kitty")),
+    Key([mod], "Return", lazy.spawn("alacritty")),
     Key([mod, "shift"], "Return", lazy.spawn("dmenu_run -p 'Run: '")),
 ]
 
@@ -75,9 +75,9 @@ for i in groups:
 
     ##### DEFAULT THEME SETTINGS FOR LAYOUTS #####
 layout_theme = {
-    "border_width": 4,
-    "margin": 8,
-    "border_focus": "8ec07c",
+    "border_width": 3,
+    "margin": 9,
+    "border_focus": "458588",
     "border_normal": "1D2330"
 }
 
@@ -88,21 +88,36 @@ layouts = [
 ]
 
 widget_defaults = dict(
-    font='Ubuntu',
-    fontsize=14,
-    padding=3,
+    font="Ubuntu Mono",
+    fontsize = 15,
+    padding = 2,
+    background="282828",
+    foreground="ebdbb2"
 )
+
 extension_defaults = widget_defaults.copy()
 
 screens = [
     Screen(
         top=bar.Bar(
             [
-                widget.CurrentLayout(),
-                widget.GroupBox(),
+                widget.GroupBox(
+                    font="Ubuntu Bold",
+                    fontsize = 11,
+                    borderwidth = 3,
+                    active = "ebdbb2",
+                    inactive = "a89984",
+                    rounded = False,
+                    highlight_color = "282828",
+                    highlight_method = "line",
+                    this_current_screen_border = "458588",
+                    other_screen_border = "282828",
+                    foreground = "282828",
+                    background = "282828"
+                ),
                 widget.Prompt(),
                 widget.WindowName(),
-                #widget.TextBox("default config", name="default"),
+                widget.CurrentLayout(),
                 widget.Systray(),
                 widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
             ],
