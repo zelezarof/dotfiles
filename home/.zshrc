@@ -43,3 +43,7 @@ bindkey -v
 
 # GPG
 export GPG_TTY=$(tty)
+
+# GoLang
+export GOPATH="/home/zelezarof/.local/share/go"
+export GOBIN="/home/zelezarof/.local/bin"
