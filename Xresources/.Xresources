@@ -6,6 +6,17 @@ Xft.autohint: true
 Xft.hintstyle: hintfull
 Xft.lcdfilter: lcdfilter
 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!         Xterm        !!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+XTerm*renderFont: true
+XTerm*faceName: xft:Mononoki Nerd Font
+XTerm*faceSize: 11
+XTerm*utf8: 2
+XTerm*locale: true
+XTerm*loginshell: true
+XTerm*savelines: 16384
+
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !!!!!         URxvt        !!!!!
@@ -14,7 +25,7 @@ URxvt*imLocale: en_CA.UTF-8
 URxvt*termName: rxvt-unicode-256color
 URxvt*buffered: false
 URxvt.intensityStyles: false
-URxvt.font: xft: Mononoki Nerd Font:size=11
+URxvt.font: xft:mononoki Nerd Font Mono:size=11
 URxvt.saveLines: 2000
 URxvt.scrollBar: false
 URxvt.cursorUnderline: true
@@ -25,4 +36,4 @@ URxvt.perl-ext-common: default,clipboard
 URxvt.url-select.launcher:  /usr/bin/firefox
 URxvt.clipboard.autocopy: true
 
-#include ".Xresources.d/flat-remix"
+#include ".Xresources.d/gruvbox"
