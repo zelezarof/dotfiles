@@ -9,6 +9,8 @@ settings:
   content.media_capture:
     https://web.whatsapp.com: true
   content.notifications:
+    https://web.whatsapp.com: true
+    https://www.reddit.com: false
     https://www.youtube.com: false
   content.register_protocol_handler:
     https://mail.google.com?extsrc=mailto&url=%25s: true
