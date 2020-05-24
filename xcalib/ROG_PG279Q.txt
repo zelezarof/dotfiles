@@ -1,0 +1,9 @@
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"        https://www.tftcentral.co.uk/articles/icc_profiles.htm          "
+"                                                                        "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+<Brightness>    <Contrast>    <Red>    <Green>    <Blue>    <Preset Mode>
+     25              50         97        93       100         Racing
+
+
