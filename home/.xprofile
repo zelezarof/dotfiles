@@ -1,4 +1,3 @@
-urxvtd --quiet --opendisplay --fork &
+xcalib /home/zelezarof/.dotfiles/xcalib/ROG_PG279Q.icc
 feh --bg-scale /home/zelezarof/Pictures/ilustration/05.png &
 compton &
-polychromatic-tray-applet &
