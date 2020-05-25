@@ -42,8 +42,8 @@ keys = [
     Key([mod, "shift"], "k", lazy.layout.shuffle_up()),
 
     # Grow / Shrink windows
-    Key([mod], "h", lazy.layout.shrink()),
-    Key([mod], "l", lazy.layout.grow()),
+    Key([mod], "h", lazy.layout.shrink_main()),
+    Key([mod], "l", lazy.layout.grow_main()),
 
     # Swap panes of split stack
     Key([mod, "shift"], "space", lazy.layout.rotate()),
@@ -75,9 +75,9 @@ for i in groups:
 
     ##### DEFAULT THEME SETTINGS FOR LAYOUTS #####
 layout_theme = {
-    "border_width": 3,
-    "margin": 9,
-    "border_focus": "458588",
+    "border_width": 2,
+    "margin": 6,
+    "border_focus": "d79921",
     "border_normal": "282828"
 }
 
