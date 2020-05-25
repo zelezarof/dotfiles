@@ -278,7 +278,7 @@ colors:
 #
 # Window opacity as a floating point number from `0.0` to `1.0`.
 # The value `0.0` is completely transparent and `1.0` is opaque.
-#background_opacity: 1.0
+background_opacity: 0.7
 
 #selection:
   #semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
@@ -500,11 +500,11 @@ mouse_bindings:
 #
 # If the same trigger is assigned to multiple actions, all of them are executed
 # at once.
-#key_bindings:
+key_bindings:
   # (Windows, Linux, and BSD only)
   #- { key: V,        mods: Control|Shift, action: Paste            }
   #- { key: C,        mods: Control|Shift, action: Copy             }
-  #- { key: Insert,   mods: Shift,         action: PasteSelection   }
+  - { key: S,        mods: Control|Shift, action: PasteSelection   }
   #- { key: Key0,     mods: Control,       action: ResetFontSize    }
   #- { key: Equals,   mods: Control,       action: IncreaseFontSize }
   #- { key: Add,      mods: Control,       action: IncreaseFontSize }
@@ -529,14 +529,14 @@ mouse_bindings:
   #- { key: W,      mods: Command,         action: Quit             }
   #- { key: F,      mods: Command|Control, action: ToggleFullscreen }
 
-  #- { key: Paste,                    action: Paste                            }
-  #- { key: Copy,                     action: Copy                             }
-  #- { key: L,         mods: Control, action: ClearLogNotice                   }
-  #- { key: L,         mods: Control, chars: "\x0c"                            }
-  #- { key: PageUp,    mods: Shift,   action: ScrollPageUp,   mode: ~Alt       }
-  #- { key: PageDown,  mods: Shift,   action: ScrollPageDown, mode: ~Alt       }
-  #- { key: Home,      mods: Shift,   action: ScrollToTop,    mode: ~Alt       }
-  #- { key: End,       mods: Shift,   action: ScrollToBottom, mode: ~Alt       }
+  #- { key: Paste,                         action: Paste             }
+  #- { key: Copy,                          action: Copy              }
+  #- { key: L,      mods: Control,         action: ClearLogNotice    }
+  #- { key: L,      mods: Control,         chars: "\x0c"             }
+  - { key: K,       mods: Control|Shift,   action: ScrollPageUp,     }
+  - { key: J,       mods: Control|Shift,   action: ScrollPageDown    }
+  #- { key: Home,   mods: Shift,           action: ScrollToTop,    mode: ~Alt }
+  #- { key: End,    mods: Shift,           action: ScrollToBottom, mode: ~Alt }
 
 #debug:
   # Display the time it takes to redraw each frame.
