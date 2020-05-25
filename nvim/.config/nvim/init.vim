@@ -13,6 +13,7 @@ call plug#begin('/home/zelezarof/.local/share/nvim/plugged')
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
   Plug 'morhetz/gruvbox'
+  Plug 'svermeulen/vim-easyclip'
 call plug#end()
 
 
@@ -24,7 +25,7 @@ colorscheme gruvbox                          " Set colorscheme
 set termguicolors                            " Enable 24-Bit RGB colors
 set showmatch                                " Higlight matching brackets 
 set number relativenumber                    " Display line numbers 
-set clipboard+=unnamedplus                   " Use X Window's clipbard as main register
+set clipboard=unnamed                        " Use X Window's clipbard as main register
 
 augroup numbertoggle
   autocmd!
