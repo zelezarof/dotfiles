@@ -54,12 +54,13 @@ keys = [
 
     Key([mod, "shift"], "r", lazy.restart()),
     Key([mod, "shift"], "q", lazy.shutdown()),
-    
+
     Key([mod], "Return", lazy.spawn("alacritty")),
-    Key([mod, "shift"], "Return", lazy.spawn("dmenu_run -p 'Run: '")),
+    Key([mod, "shift"], "Return", lazy.layout.swap_main()),
+    Key([mod], "p", lazy.spawn("dmenu_run -p 'Run: '")),
 ]
 
-groups = [Group(i) for i in "asdfuiop"]
+groups = [Group(i) for i in "asdf"]
 
 for i in groups:
     keys.extend([
@@ -138,7 +139,7 @@ mouse = [
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: List
 main = None
-follow_mouse_focus = False
+follow_mouse_focus = True
 bring_front_click = False
 cursor_warp = False
 floating_layout = layout.Floating(float_rules=[
