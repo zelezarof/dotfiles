@@ -8,7 +8,6 @@ source /usr/share/zsh/share/antigen.zsh
     antigen bundle pip
 antigen apply
 
-neofetch
 export PATH="$HOME/.local/bin:$PATH"
 export VISUAL=nvim
 export EDITOR="$VISUAL" 
@@ -16,10 +15,6 @@ export EDITOR="$VISUAL"
 # navigation
 alias ..='cd ..' 
 alias ...='cd ../..'
-
-# udiskie
-alias usb-mount="udiskie-mount"
-alias usb-umount="udiskie-umount"
 
 # vim
 alias vim=nvim
