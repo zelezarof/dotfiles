@@ -22,6 +22,9 @@ alias vim=nvim
 # ls
 alias ls='exa'
 
+# spotify
+alias spotify="spt"
+
 # adding flags
 alias cp="cp -i"                          # confirm before overwriting something
 alias df='df -h'                          # human-readable sizes
