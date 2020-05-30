@@ -1,4 +1,4 @@
-source /usr/share/zsh/share/antigen.zsh
+source /home/zelezarof/.local/share/antigen/antigen.zsh
     # Load oh-my-zsh's library
     antigen use oh-my-zsh
 
