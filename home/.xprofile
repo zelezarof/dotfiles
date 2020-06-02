@@ -1,4 +1,4 @@
-xcalib /home/zelezarof/.config/xcalib/ROG_PG279Q.icc &
-feh --bg-scale /home/zelezarof/Pictures/475526.jpg &
-python /home/zelezarof/.config/openrazer/razer_basic.py &
-picom --experimental-backends -b &
+xcalib /home/zelezarof/.config/xcalib/ROG_PG279Q.icc
+feh --bg-scale /storage/Pictures/650217.jpg
+python /home/zelezarof/.config/openrazer/razer_basic.py
+picom --experimental-backends -b
