@@ -1,9 +1,9 @@
-from themes import gruvbox
+from themes import gruvbox_default as theme
 
 config.load_autoconfig()
 
 # Set custom properties
 c.url.start_pages = ['https://www.github.com/zelezarof']
-c.zoom.default = '115%'
+c.zoom.default = '110%'
 c.tabs.show = "multiple"
-gruvbox.apply(c)
+theme.apply(c)
