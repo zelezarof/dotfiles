@@ -1,6 +1,5 @@
 import XMonad
 import XMonad.Config.Desktop
-import XMonad.Util.SpawnOnce
 
 import XMonad.Layout.NoBorders (smartBorders)
 import XMonad.Layout.Spacing
@@ -15,5 +14,5 @@ main = xmonad desktopConfig {
   normalBorderColor   = "#928374",
   focusedBorderColor  = "#689d6a",
   layoutHook          = smartBorders $ mySpacing $ layoutHook def, 
-  startupHook         = startupHook desktopConfig <+> spawnOnce "alacritty"
+  startupHook         = startupHook desktopConfig
 }
