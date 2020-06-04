@@ -7,6 +7,8 @@
 config_version: 2
 settings:
   content.notifications:
+    https://web.whatsapp.com: true
+    https://www.animefreak.tv: false
     https://www.reddit.com: false
   content.register_protocol_handler:
     https://mail.google.com?extsrc=mailto&url=%25s: true
