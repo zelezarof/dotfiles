@@ -3,7 +3,6 @@ set guicursor=             "  Disable cursor update for nvim
 "                        Vim-Plug                          "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('/home/zelezarof/.local/share/nvim/plugged')
-    Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'tpope/vim-commentary'
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
