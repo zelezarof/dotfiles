@@ -1,3 +1,8 @@
+/* Xcursor.theme: gentoo */
+Xcursor.theme: ComixCursors-White
+Xcursor.size: 32
+
+
 Xft.dpi: 108
 Xft.antialias: true
 Xft.hinting: true
@@ -10,7 +15,7 @@ Xft.lcdfilter: lcdfilter
 !!!!!         Xterm        !!!!!
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 XTerm*renderFont: true
-XTerm*faceName: xft:Mononoki Nerd Font
+XTerm*faceName: xft:mononoki Nerd Font Mono
 XTerm*faceSize: 12
 XTerm*utf8: 2
 XTerm*locale: true
@@ -25,7 +30,7 @@ URxvt*imLocale: en_CA.UTF-8
 URxvt*termName: rxvt-unicode-256color
 URxvt*buffered: false
 URxvt.intensityStyles: false
-URxvt.font: xft:mononoki Nerd Font Mono:size=11
+URxvt.font: xft:CaskaydiaCove Nerd Font Mono
 URxvt.saveLines: 2000
 URxvt.scrollBar: false
 URxvt.cursorUnderline: true

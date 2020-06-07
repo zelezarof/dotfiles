@@ -1,0 +1,1 @@
+base16-qutebrowser-1.9.0-1/themes/default/base16-gruvbox-dark-hard.config.py

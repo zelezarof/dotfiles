@@ -9,10 +9,10 @@ mySpacing = spacingRaw True (Border 0 5 5 5) True (Border 5 5 5 5) True
 
 
 main = xmonad desktopConfig {
-  borderWidth         = 4,
+  borderWidth         = 3,
   terminal            = "alacritty",
   normalBorderColor   = "#928374",
-  focusedBorderColor  = "#689d6a",
+  focusedBorderColor  = "#d65d0e",
   layoutHook          = smartBorders $ mySpacing $ layoutHook def, 
   startupHook         = startupHook desktopConfig
 }
