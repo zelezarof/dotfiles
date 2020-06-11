@@ -14,5 +14,31 @@ if [[ $- != *i* ]] ; then
 	return
 fi
 
-
 # Put your fun stuff here.
+export PATH="$HOME/.local/bin:$PATH"
+export VISUAL=nvim
+export EDITOR="$VISUAL" 
+
+# vim 
+alias vim="nvim"
+
+# ls
+alias ls='exa'
+
+# fonts
+alias list-fonts="fc-list -f '%{family}\n' | awk '!x[$0]++'"
+
+
+# spotify
+alias spotify="spt"
+
+# adding flags
+alias cp="cp -i"                          # confirm before overwriting something
+alias df='df -h'                          # human-readable sizes
+alias free='free -m'                      # show sizes in MB
+
+### SETS VI MODE ###
+set -o vi
+
+# GPG
+export GPG_TTY=$(tty)

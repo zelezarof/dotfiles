@@ -3,11 +3,11 @@ set guicursor=             "  Disable cursor update for nvim
 "                        Vim-Plug                          "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('/home/zelezarof/.local/share/nvim/plugged')
+    Plug 'morhetz/gruvbox'
     Plug 'tpope/vim-commentary'
     Plug 'vim-airline/vim-airline'
-    Plug 'dawikur/base16-vim-airline-themes'
-    Plug 'chriskempson/base16-vim'
-    Plug 'rust-lang/rust.vim' 
+    Plug 'preservim/nerdtree'
+    Plug 'dense-analysis/ale'
 call plug#end()
 
 
@@ -19,11 +19,10 @@ call plug#end()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                    Apply Color Theme                     "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-if filereadable(expand("~/.vimrc_background"))
-  let base16colorspace=256
-  source ~/.vimrc_background
-endif
-
+set termguicolors
+set background=dark
+let g:gruvbox_italic = 1
+colorscheme gruvbox
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                     Key Bindings                         "
