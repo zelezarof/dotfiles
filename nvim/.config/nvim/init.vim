@@ -5,9 +5,8 @@ set guicursor=             "  Disable cursor update for nvim
 call plug#begin('/home/zelezarof/.local/share/nvim/plugged')
     Plug 'morhetz/gruvbox'
     Plug 'tpope/vim-commentary'
-    Plug 'vim-airline/vim-airline'
-    Plug 'preservim/nerdtree'
-    Plug 'dense-analysis/ale'
+    Plug 'vim-airline/vim-airline',
+    Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 call plug#end()
 
 
@@ -47,6 +46,3 @@ augroup numbertoggle
   autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
   autocmd BufLeave,FocusLost,InsertEnter * set norelativenumber
 augroup END
-
-packloadall
-silent! helptags ALL

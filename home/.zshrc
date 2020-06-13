@@ -1,26 +1,6 @@
-################################################################################
-#                                Base16 Shell                                  #
-################################################################################
-BASE16_SHELL="$HOME/.config/base16-shell/"
-[ -n "$PS1" ] && \
-    [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
-        eval "$("$BASE16_SHELL/profile_helper.sh")"
-
-
-################################################################################
-#                                Antigen Zsh                                   #
-################################################################################
-source /home/zelezarof/.local/share/antigen/antigen.zsh
-    # Load oh-my-zsh's library
-    antigen use oh-my-zsh
-
-    # Load bundles from oh-my-zsh's repo
-    antigen bundle git
-    antigen bundle pipenv
-    antigen bundle pip
-antigen apply
-
-
+#################################################################################
+##                                Antigen Zsh                                   #
+#################################################################################
 export PATH="$HOME/.local/bin:$PATH"
 export VISUAL=nvim
 export EDITOR="$VISUAL" 
@@ -49,8 +29,20 @@ bindkey -v
 # GPG
 export GPG_TTY=$(tty)
 
-# Gentoo
-zstyle ':completion::complete:*' use-cache 1
+
 autoload -U compinit promptinit
 compinit
-promptinit; prompt gentoo
+zstyle ':completion::complete:*' use-cache 1
+
+# History
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=1000
+setopt hist_ignore_all_dups
+setopt hist_ignore_space
+
+# Extended GLOB support
+setopt extendedglob
+
+# Starship
+eval "$(starship init zsh)"
