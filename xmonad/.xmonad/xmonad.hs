@@ -7,12 +7,14 @@ import XMonad.Layout.Spacing
 
 mySpacing = spacingRaw True (Border 0 5 5 5) True (Border 5 5 5 5) True
 
-
 main = xmonad desktopConfig {
+  -- basic stuff
   borderWidth         = 3,
   terminal            = "alacritty",
   normalBorderColor   = "#928374",
   focusedBorderColor  = "#d65d0e",
+  
+  -- hooks, layouts
   layoutHook          = smartBorders $ mySpacing $ layoutHook def, 
   startupHook         = startupHook desktopConfig
 }
