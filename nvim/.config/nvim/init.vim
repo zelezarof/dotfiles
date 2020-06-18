@@ -4,9 +4,10 @@ set guicursor=             "  Disable cursor update for nvim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('/home/zelezarof/.local/share/nvim/plugged')
     Plug 'morhetz/gruvbox'
+    Plug 'jiangmiao/auto-pairs'
     Plug 'tpope/vim-commentary'
-    Plug 'vim-airline/vim-airline',
-    Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+    Plug 'vim-airline/vim-airline'
+    Plug 'dense-analysis/ale'
 call plug#end()
 
 
