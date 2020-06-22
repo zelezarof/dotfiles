@@ -2,11 +2,8 @@
 ##                                Antigen Zsh                                   #
 #################################################################################
 export PATH="$HOME/.local/bin:$PATH"
-export VISUAL=nvim
+export VISUAL=vim
 export EDITOR="$VISUAL" 
-
-# vim
-alias vim=nvim
 
 # ls
 alias ls='exa'
@@ -45,4 +42,5 @@ setopt hist_ignore_space
 setopt extendedglob
 
 # Starship
+export STARSHIP_CONFIG=~/.config/starship/starship.toml
 eval "$(starship init zsh)"
