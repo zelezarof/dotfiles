@@ -1,3 +1,4 @@
+python /home/zelezarof/.config/openrazer/razer_basic.py
 xcalib /home/zelezarof/.config/xcalib/ROG_PG279Q.icc
 feh --bg-scale /home/zelezarof/Pictures/wallhaven-838kky.png
 picom --experimental-backends -b
