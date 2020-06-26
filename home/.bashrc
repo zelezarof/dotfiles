@@ -16,11 +16,8 @@ fi
 
 # Put your fun stuff here.
 export PATH="$HOME/.local/bin:$PATH"
-export VISUAL=nvim
+export VISUAL=vim
 export EDITOR="$VISUAL" 
-
-# vim 
-alias vim="nvim"
 
 # ls
 alias ls='exa'
@@ -42,3 +39,7 @@ set -o vi
 
 # GPG
 export GPG_TTY=$(tty)
+
+# Starship
+export STARSHIP_CONFIG=~/.config/starship/starship.toml
+eval "$(starship init bash)"
