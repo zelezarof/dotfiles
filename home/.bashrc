@@ -16,8 +16,9 @@ fi
 
 # Put your fun stuff here.
 export PATH="$HOME/.local/bin:$PATH"
-export VISUAL=vim
-export EDITOR="$VISUAL" 
+export PATH="$HOME/.yarn/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
+export TERMINAL=alacritty
 
 # ls
 alias ls='exa'
@@ -40,6 +41,6 @@ set -o vi
 # GPG
 export GPG_TTY=$(tty)
 
-# Starship
-export STARSHIP_CONFIG=~/.config/starship/starship.toml
-eval "$(starship init bash)"
+# Go 
+export GOPATH="$HOME/.local/lib/go"
+export GOBIN="$HOME/.local/bin"

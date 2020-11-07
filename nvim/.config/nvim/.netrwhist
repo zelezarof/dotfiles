@@ -1,5 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =7
+let g:netrw_dirhistcnt =8
+let g:netrw_dirhist_8='/home/zelezarof/.dotfiles/herbstluftwm/.config/herbstluftwm'
 let g:netrw_dirhist_7='/home/zelezarof/.dotfiles/nvim/.config/nvim/ftplugin'
 let g:netrw_dirhist_6='/home/zelezarof/.config/nvim'
 let g:netrw_dirhist_5='/home/zelezarof/.dotfiles/nvim/.config/nvim'
@@ -9,4 +10,3 @@ let g:netrw_dirhist_2='/home/zelezarof/.config/nvim'
 let g:netrw_dirhist_1='/home/zelezarof/.config/alacritty'
 let g:netrw_dirhist_0='/home/zelezarof/.config/configstore'
 let g:netrw_dirhist_9='/home/zelezarof/.local/share/nvim/plugged'
-let g:netrw_dirhist_8='/media/sda/linux/gentoo'
