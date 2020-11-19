@@ -6,7 +6,6 @@ set cmdheight=1    " Give more space for displaying messages
 call plug#begin('/home/zelezarof/.local/share/nvim/plugged')
     Plug 'preservim/nerdtree'
     Plug 'morhetz/gruvbox'
-    Plug 'jiangmiao/auto-pairs'
     Plug 'tpope/vim-commentary'
     Plug 'vim-airline/vim-airline'
     Plug 'neovim/nvim-lspconfig'
