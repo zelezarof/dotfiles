@@ -1,5 +1,6 @@
 set guicursor=     " Disable cursor update for nvim
 set cmdheight=1    " Give more space for displaying messages
+set inccommand=nosplit   " Live highlight substitution
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                        Vim-Plug                          "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -11,7 +12,7 @@ call plug#begin('/home/zelezarof/.local/share/nvim/plugged')
     Plug 'neovim/nvim-lspconfig'
     Plug 'nvim-lua/completion-nvim'
     Plug 'cespare/vim-toml'
-    
+    Plug 'jiangmiao/auto-pairs'    
 call plug#end()
 
 
@@ -30,6 +31,7 @@ colorscheme gruvbox
 set completeopt=menuone,noinsert,noselect
 let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 lua require'lspconfig'.rust_analyzer.setup{ on_attach=require'completion'.on_attach }
+lua require'lspconfig'.pyls.setup{ on_attach=require'completion'.on_attach }
 
 " NVim LSP
 nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>

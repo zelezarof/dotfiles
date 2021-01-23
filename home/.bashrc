@@ -18,17 +18,13 @@ fi
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.yarn/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
-export TERMINAL=alacritty
+export TERMINAL=kitty
 
 # ls
 alias ls='exa'
 
 # fonts
 alias list-fonts="fc-list -f '%{family}\n' | awk '!x[$0]++'"
-
-
-# spotify
-alias spotify="spt"
 
 # adding flags
 alias cp="cp -i"                          # confirm before overwriting something

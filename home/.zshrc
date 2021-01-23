@@ -5,9 +5,6 @@ export PATH="$HOME/.local/bin:$PATH"
 export VISUAL=vim
 export EDITOR="$VISUAL" 
 
-# ls
-alias ls='exa'
-
 # fonts
 alias list-fonts="fc-list -f '%{family}\n' | awk '!x[$0]++'"
 
@@ -40,7 +37,3 @@ setopt hist_ignore_space
 
 # Extended GLOB support
 setopt extendedglob
-
-# Starship
-export STARSHIP_CONFIG=~/.config/starship/starship.toml
-eval "$(starship init zsh)"
