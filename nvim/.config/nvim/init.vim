@@ -13,6 +13,7 @@ call plug#begin('/home/zelezarof/.local/share/nvim/plugged')
     Plug 'nvim-lua/completion-nvim'
     Plug 'cespare/vim-toml'
     Plug 'jiangmiao/auto-pairs'    
+    Plug 'rust-lang/rust.vim'
 call plug#end()
 
 
@@ -22,6 +23,7 @@ call plug#end()
 set termguicolors
 set background=dark
 let g:gruvbox_italic = 1
+let g:gruvbox_contrast_dark = "hard"
 colorscheme gruvbox
 
 
@@ -31,6 +33,8 @@ colorscheme gruvbox
 set completeopt=menuone,noinsert,noselect
 let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 lua require'lspconfig'.rust_analyzer.setup{ on_attach=require'completion'.on_attach }
+let g:rustfmt_autosave = 1
+
 lua require'lspconfig'.pyls.setup{ on_attach=require'completion'.on_attach }
 
 " NVim LSP
