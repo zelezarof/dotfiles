@@ -1,0 +1,3 @@
+[submodule "vendor/JetBrainsMono"]
+	path = vendor/JetBrainsMono
+	url = https://github.com/JetBrains/JetBrainsMono.git
