@@ -21,7 +21,7 @@
 ;; See 'C-h v doom-font' for documentation and more examples of what they
 ;; accept. For example:
 ;;
-(setq doom-font (font-spec :family "JetBrains Mono" :size 21 :weight 'medium)
+(setq doom-font (font-spec :family "JetBrains Mono" :size 21 :weight 'semi-bold)
      doom-variable-pitch-font (font-spec :family "JetBrains Mono" :size 19))
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
