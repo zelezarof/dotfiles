@@ -4,6 +4,9 @@ if [[ -e ${HOME}/.pyenv ]]; then
     eval "$(pyenv init -)"
 fi
 
+if [[ ! -e "${HOME}/.local/share/fonts" ]]; then
+    mkdir -p "${HOME}/.local/share/fonts"
+fi
 
 if [[ -e ${XDG_CONFIG_HOME}/emacs/bin ]]; then
     export PATH="${XDG_CONFIG_HOME}/emacs/bin:${PATH}"
