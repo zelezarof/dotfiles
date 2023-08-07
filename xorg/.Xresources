@@ -1,0 +1,9 @@
+/* Xcursor.theme: gentoo */
+Xcursor.theme: ComixCursors-White
+
+Xft.antialias: true
+Xft.hinting: true
+Xft.rgba: rgb
+Xft.autohint: true
+Xft.hintstyle: hintfull
+Xft.lcdfilter: lcdfilter
