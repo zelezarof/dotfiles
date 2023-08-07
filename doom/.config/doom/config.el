@@ -22,7 +22,7 @@
 ;; accept. For example:
 ;;
 (setq doom-font (font-spec :family "JetBrains Mono" :size 21 :weight 'semi-bold)
-     doom-variable-pitch-font (font-spec :family "JetBrains Mono" :size 19))
+     doom-variable-pitch-font (font-spec :family "JetBrains Mono" :size 17))
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
 ;; up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
@@ -74,3 +74,14 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+(setq doom-gruvbox-dark-variant "hard")
+(setq doom-themes-treemacs-theme "Eclipse")
+(after! treemacs
+  (treemacs-follow-mode t))
+
+(after! lsp-mode
+  (push "[/\\\\]node_modules\\'" lsp-file-watch-ignored-directories)
+  (push "[/\\\\]laasv2_common\\'" lsp-file-watch-ignored-directories)
+  (push "[/\\\\].venv\\'" lsp-file-watch-ignored-directories)
+  (push "[/\\\\]venv\\'" lsp-file-watch-ignored-directories)
+  (setq lsp-enable-folding nil))
