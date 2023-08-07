@@ -75,6 +75,7 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 (setq doom-gruvbox-dark-variant "hard")
+(setq doom-gruvbox-light-variant "soft")
 (setq doom-themes-treemacs-theme "Eclipse")
 (after! treemacs
   (treemacs-follow-mode t))
