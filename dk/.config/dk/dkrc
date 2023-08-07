@@ -30,6 +30,9 @@ else
 	border_outer_width=1
 fi
 
+# Enable copy/paste between host and client vm
+vmware-user-suid-wrapper
+
 { # compound command to redirect all output
 
 	# workspace settings
