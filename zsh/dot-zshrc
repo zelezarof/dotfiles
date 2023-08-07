@@ -50,6 +50,6 @@ eval "$(direnv hook zsh)"
 ##########################################################
 ##                       PyENV                          ##
 ##########################################################
-if [[ ${PYENV_VIRTUALENV_INIT} -ne 1 ]]; then
+if [[ ${PYENV_VIRTUALENV_INIT} -ne 1 && -e "${HOME}/.pyenv/bin/pyenv" ]]; then
     eval "$(pyenv virtualenv-init -)"
 fi
