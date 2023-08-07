@@ -7,7 +7,7 @@ alt + p
 
 # terminal
 alt + Return
-	kitty
+	${TERMINAL}
 
 # screenshot and selection capture
 {_,alt + }@Print
