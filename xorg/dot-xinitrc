@@ -1,1 +1,4 @@
+~/.fehbg
+xrdb -merge ~/.Xresources
+picom & disown
 exec dbus-launch --exit-with-session dk
