@@ -1,4 +1,5 @@
 ~/.fehbg
 xrdb -merge ~/.Xresources
 picom & disown
+vmware-user-suid-wrapper
 exec dbus-launch --exit-with-session dk
