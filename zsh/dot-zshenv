@@ -26,3 +26,19 @@ export XDG_CONFIG_HOME="${HOME}/.config"
 export XDG_CACHE_HOME="${HOME}/.cache"
 export XDG_DATA_HOME="${HOME}/.local/share"
 export XDG_STATE_HOME="${HOME}/.local/state"
+
+
+###############################################################################
+#                                 Bin Folder                                  #
+###############################################################################
+if [[ -e "$HOME/.local/bin" && ! $PATH =~ "$HOME/.local/bin" ]]; then
+        export PATH="$HOME/.local/bin:$PATH"
+fi
+
+
+# Go
+export GOPATH="${HOME}/.local/share/go"
+if [[ -e "$GOPATH/bin" && ! $PATH =~ "$GOPATH/bin" ]]; then
+        export GOBIN="${GOPATH}/bin"
+        export PATH="$GOBIN:$PATH"
+fi
