@@ -2,7 +2,3 @@
 	path = vendor/JetBrainsMono
 	url = https://github.com/JetBrains/JetBrainsMono.git
 	shallow = true
-[submodule "doom/.config/emacs"]
-	path = doom/.config/emacs
-	url = https://github.com/doomemacs/doomemacs
-	shallow = true
