@@ -52,8 +52,8 @@ alt + {q,space,Tab}
 	dkcmd win {kill,swap,cycle}
 
 # toggle fullscreen and fake fullscreen (enable manipulating fullscreen window)
-{_,alt + }F11
-	dkcmd win {full,fakefull}
+shift + alt + f
+	dkcmd win full
 
 # toggle floating or sticky
 alt + shift + {space,s}
