@@ -76,7 +76,6 @@
 ;; they are implemented.
 (setq doom-gruvbox-dark-variant "hard")
 (setq doom-gruvbox-light-variant "soft")
-(setq doom-themes-treemacs-theme "Eclipse")
 (after! treemacs
   (treemacs-follow-mode t))
 
