@@ -74,11 +74,11 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+(setq doom-themes-treemacs-theme "doom-colors")
 (setq doom-gruvbox-dark-variant "hard")
 (setq doom-gruvbox-light-variant "soft")
 (after! treemacs
   (treemacs-follow-mode t))
-
 (after! lsp-mode
   (push "[/\\\\]node_modules\\'" lsp-file-watch-ignored-directories)
   (push "[/\\\\]laasv2_common\\'" lsp-file-watch-ignored-directories)
