@@ -3,3 +3,5 @@
 [user]
 	email = zelezarof@gmail.com
 	name = Jose M Zelezarof
+[commit]
+	gpgsign = true
