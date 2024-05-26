@@ -1,0 +1,9 @@
+[font]
+normal = { family = "M+CodeLat60 Nerd Font Mono", style = "regular"}
+size = 12.5
+
+[window]
+dimensions = { columns = 130, lines = 30 }
+padding.x = 10
+padding.y = 10
+
