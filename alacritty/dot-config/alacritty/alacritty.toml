@@ -1,3 +1,5 @@
+import = ["~/.config/alacritty/theme/rose-pine-moon.toml"]
+
 [font]
 normal = { family = "M+CodeLat60 Nerd Font Mono", style = "regular"}
 size = 12.5
