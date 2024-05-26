@@ -2,3 +2,6 @@
 	path = vendor/JetBrainsMono
 	url = https://github.com/JetBrains/JetBrainsMono.git
 	shallow = true
+[submodule "zsh/zsh/dot-config/zsh/powerlevel10k"]
+	path = zsh/zsh/dot-config/zsh/powerlevel10k
+	url = git@github.com:romkatv/powerlevel10k.git
