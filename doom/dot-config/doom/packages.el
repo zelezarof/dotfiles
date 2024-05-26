@@ -26,6 +26,10 @@
  :recipe (:host github :repo "bazelbuild/emacs-bazel-mode"
           :files ("bazel.el")))
 
+(package! denote 
+ :recipe (:host github :repo "protesilaos/denote"
+          :files ("denote.el")))
+
 ;; If you'd like to disable a package included with Doom, you can do so here
 ;; with the `:disable' property:
 ;(package! builtin-package :disable t)
