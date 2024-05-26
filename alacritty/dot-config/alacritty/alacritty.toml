@@ -8,4 +8,5 @@ size = 12.5
 dimensions = { columns = 130, lines = 30 }
 padding.x = 10
 padding.y = 10
-
+opacity = 0.9
+blur = true
