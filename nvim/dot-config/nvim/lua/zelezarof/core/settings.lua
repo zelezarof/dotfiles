@@ -17,7 +17,7 @@ vim.opt.wrap = false
 -- swap / backup / undo
 vim.opt.swapfile = false
 vim.opt.backup = false
-vim.opt.undodir = os.getenv("XDG_DATA_HOME") .. "vim/undodir"
+vim.opt.undodir = os.getenv("XDG_DATA_HOME") .. "/vim/undodir"
 vim.opt.undofile = true
 
 -- search
