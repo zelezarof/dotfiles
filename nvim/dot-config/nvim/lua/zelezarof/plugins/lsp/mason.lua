@@ -32,8 +32,10 @@ return {
                 "black",         -- python formatter'
                 "gofumpt",       -- go formatter'
                 "golangci-lint", -- go linter
+                "staticcheck",   -- go linter
                 "pylint",        -- python linter
-                "markdownlint"   -- markdown
+                "markdownlint",  -- markdown
+                "mypy",          -- python static type checker
             },
         })
     end,
