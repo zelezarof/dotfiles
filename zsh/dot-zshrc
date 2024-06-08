@@ -67,8 +67,11 @@ eval "$(zoxide init zsh)"
 ##########################################################
 ##                       PyENV                          ##
 ##########################################################
-if [[ ${PYENV_VIRTUALENV_INIT} -ne 1 && -e "${HOME}/.pyenv/bin/pyenv" ]]; then
+if [[  -e "${PYENV_ROOT}/bin/pyenv" ]]; then
+    export PATH="${PYENV_ROOT}/bin:${PATH}"
+    eval "$(pyenv init -)"
     eval "$(pyenv virtualenv-init -)"
+    source "$(pyenv root)/completions/pyenv.zsh"
 fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
