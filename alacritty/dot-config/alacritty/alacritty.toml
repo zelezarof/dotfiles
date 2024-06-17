@@ -1,8 +1,8 @@
 import = ["~/.config/alacritty/theme/rose-pine-moon.toml"]
 
 [font]
-normal = { family = "M+CodeLat60 Nerd Font Mono", style = "regular"}
-size = 12.5
+normal = { family = "M+1Code Nerd Font Mono", style = "regular"}
+size = 13.5
 
 [window]
 dimensions = { columns = 130, lines = 30 }
