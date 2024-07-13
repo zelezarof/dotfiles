@@ -1,8 +1,12 @@
-import = ["~/.config/alacritty/theme/rose-pine-moon.toml"]
+import = ["~/.config/alacritty/theme/catppuccin-latte.toml"]
 
 [font]
-normal = { family = "M+1Code Nerd Font Mono", style = "regular"}
-size = 13.5
+# normal = { family = "M+1Code Nerd Font Mono", style = "regular"}
+# normal = { family = "ZedMono Nerd Font Mono", style = "regular"}
+normal = { family = "Monofur Nerd Font Mono", style = "regular"}
+bold = { family = "Monofur Nerd Font Mono", style = "regular"}
+# normal = { family = "SpaceMono Nerd Font Mono", style = "regular"}
+size = 14
 
 [window]
 dimensions = { columns = 130, lines = 30 }

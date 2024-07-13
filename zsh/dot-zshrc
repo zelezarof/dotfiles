@@ -1,16 +1,21 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+#!/bin/zsh
+##########################################################
+##                 Powerlevel10k                        ##
+##########################################################
+# Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-#!/bin/zsh
+
 ##########################################################
 ##                 Core Settings                        ##
 ##########################################################
 bindkey -e
 tabs 4
+
 
 ##########################################################
 ##                 History Settings                     ##
@@ -51,7 +56,6 @@ else
 fi
 
 
-
 ##########################################################
 ##                      DIRENV                          ##
 ##########################################################
@@ -63,6 +67,16 @@ eval "$(direnv hook zsh)"
 ##########################################################
 eval "$(zoxide init zsh)"
 
+
+##########################################################
+##                       GoEnv                          ##
+##########################################################
+if [[  -e ${GOENV_ROOT} ]]; then
+    export PATH="${GOENV_ROOT}/bin:${PATH}"
+    eval "$(goenv init -)"
+    export GOPATH="${XDG_DATA_HOME}/go"
+    export GOBIN="${XDG_BIN_HOME}"
+fi
 
 ##########################################################
 ##                       PyENV                          ##
@@ -79,5 +93,3 @@ fi
 
 # To customize prompt, run `p10k configure` or edit ~/.local/share/dotfiles/zsh/.p10k.zsh.
 [[ ! -f ~/.local/share/dotfiles/zsh/.p10k.zsh ]] || source ~/.local/share/dotfiles/zsh/.p10k.zsh
-
-[[ -s "/home/jzelezar/.gvm/scripts/gvm" ]] && source "/home/jzelezar/.gvm/scripts/gvm"
