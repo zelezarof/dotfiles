@@ -5,7 +5,7 @@ return {
         require('lualine').setup({
             options = {
                 --- @usage 'rose-pine' | 'rose-pine-alt'
-                theme = 'catppuccin-latte'
+                theme = 'catppuccin-mocha'
             }
         })
     end
