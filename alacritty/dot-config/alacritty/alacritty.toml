@@ -1,4 +1,4 @@
-import = ["~/.config/alacritty/theme/catppuccin-latte.toml"]
+import = ["~/.config/alacritty/theme/catppuccin-mocha.toml"]
 
 [font]
 # normal = { family = "M+1Code Nerd Font Mono", style = "regular"}
