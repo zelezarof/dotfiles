@@ -75,17 +75,6 @@ source <(fzf --zsh)
 
 
 ##########################################################
-##                       GoEnv                          ##
-##########################################################
-if [[  -e ${GOENV_ROOT} ]]; then
-    export PATH="${GOENV_ROOT}/bin:${PATH}"
-    export GOENV_GOPATH_PREFIX="${XDG_DATA_HOME}/go"
-    eval "$(goenv init -)"
-    export PATH="$GOROOT/bin:$PATH"
-    export PATH="$PATH:$GOPATH/bin"
-fi
-
-##########################################################
 ##                       PyENV                          ##
 ##########################################################
 if [[  -e "${PYENV_ROOT}/bin/pyenv" ]]; then

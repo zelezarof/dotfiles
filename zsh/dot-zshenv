@@ -41,8 +41,9 @@ fi
 ################################################################################
 #                                    GoEnv                                     #
 ################################################################################
-export GOENV_ROOT=${XDG_DATA_HOME}/goenv
-
+export GOROOT=/home/zelezarof/.local/share/go
+export GOPATH=/home/zelezarof/.local/lib/go
+export PATH=${GOPATH}/bin:${PATH}
 
 ################################################################################
 #                                    PyEnv                                     #
