@@ -88,3 +88,5 @@
 
 (setq catppuccin-flavor 'latte) ;; or 'latte, 'macchiato, or 'mocha
 ;; (catppuccin-reload)
+(setq denote-directory (expand-file-name "~/Workspace/notes/"))
+
