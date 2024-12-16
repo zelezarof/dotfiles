@@ -86,7 +86,7 @@
   (push "[/\\\\]venv\\'" lsp-file-watch-ignored-directories)
   (setq lsp-enable-folding nil))
 
-(setq catppuccin-flavor 'latte) ;; or 'latte, 'macchiato, or 'mocha
+(setq catppuccin-flavor 'mocha) ;; or 'latte, 'macchiato, or 'mocha
 ;; (catppuccin-reload)
 (setq denote-directory (expand-file-name "~/Workspace/notes/"))
 

@@ -1,14 +1,9 @@
 #!/bin/zsh
-##########################################################
-##                 Powerlevel10k                        ##
-##########################################################
-# Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
 
+##########################################################
+##                   Prompt                             ##
+##########################################################
+eval "$(oh-my-posh init zsh --config ${XDG_CONFIG_HOME}/ohmyposh/zen.toml)" 
 
 ##########################################################
 ##                 Core Settings                        ##
@@ -47,16 +42,6 @@ autoload -U compinit; compinit
 
 
 ##########################################################
-##                      Prompt                          ##
-##########################################################
-if [[ -d ${XDG_CONFIG_HOME} ]]; then
-	source "${XDG_CONFIG_HOME}/zsh/powerlevel10k/powerlevel10k.zsh-theme"
-else
-	PROMPT='%(!.%B%F{red}.%B%F{green}%n@)%m %F{blue}%(!.%1~.%~) %F{blue}%(!.#.$)%k%b%f '
-fi
-
-
-##########################################################
 ##                      DIRENV                          ##
 ##########################################################
 eval "$(direnv hook zsh)"
@@ -75,6 +60,14 @@ source <(fzf --zsh)
 
 
 ##########################################################
+##                        GVM                           ##
+##########################################################
+if [[  -s "${HOME}/.gvm/scripts/gvm" ]]; then
+    source "${HOME}/.gvm/scripts/gvm"
+fi
+
+
+##########################################################
 ##                       PyENV                          ##
 ##########################################################
 if [[  -e "${PYENV_ROOT}/bin/pyenv" ]]; then
@@ -83,9 +76,3 @@ if [[  -e "${PYENV_ROOT}/bin/pyenv" ]]; then
     eval "$(pyenv virtualenv-init -)"
     source "$(pyenv root)/completions/pyenv.zsh"
 fi
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-# To customize prompt, run `p10k configure` or edit ~/.local/share/dotfiles/zsh/.p10k.zsh.
-[[ ! -f ~/.local/share/dotfiles/zsh/.p10k.zsh ]] || source ~/.local/share/dotfiles/zsh/.p10k.zsh
