@@ -22,11 +22,24 @@
 ;  :recipe (:host github :repo "username/repo"
 ;           :files ("some-file.el" "src/lisp/*.el")))
 
+(package! ob-mermaid
+ :recipe (:host github :repo "arnm/ob-mermaid"
+          :files ("ob-mermaid.el")))
+
+(package! ob-go
+ :recipe (:host github :repo "pope/ob-go"
+          :files ("ob-go.el")))
+
 (package! bazel-mode
  :recipe (:host github :repo "bazelbuild/emacs-bazel-mode"
           :files ("bazel.el")))
 
-(package! denote 
+
+(package! protobuf
+ :recipe (:host github :repo "protocolbuffers/protobuf"
+          :files ("editors/protobuf-mode.el")))
+
+(package! denote
  :recipe (:host github :repo "protesilaos/denote"
           :files ("denote.el")))
 
