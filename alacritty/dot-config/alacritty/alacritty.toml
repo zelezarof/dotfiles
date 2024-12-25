@@ -1,9 +1,7 @@
-import = ["~/.config/alacritty/theme/catppuccin-mocha.toml"]
-
 [font]
-normal = { family = "M+1Code Nerd Font Mono", style = "regular"}
-bold = { family = "M+1Code Nerd Font Mono", style = "regular"}
-size = 13
+normal = { family = "ZedMono Nerd Font", style = "regular"}
+bold = { family = "ZedMono Nerd Font", style = "regular"}
+size = 14
 
 [window]
 dimensions = { columns = 130, lines = 30 }
@@ -19,3 +17,6 @@ hide_when_typing = true
 bindings = [
     { key = "F11", action = "ToggleFullscreen" },
 ]
+
+[general]
+import = ["~/.config/alacritty/theme/catppuccin-mocha.toml"]
