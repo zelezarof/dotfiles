@@ -32,7 +32,8 @@ set $menu $rofi_cmd -show combi -combi-modes drun#run -modes combi
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 # Requires: desktop-backgrounds-compat, swaybg
-output * bg /usr/share/backgrounds/default.png fill
+output * bg /usr/share/backgrounds/f41/default/f41-01-day.png fill
+
 #
 # Example configuration:
 #
@@ -149,8 +150,8 @@ output * bg /usr/share/backgrounds/default.png fill
     # You can "split" the current object of your focus with
     # $mod+b or $mod+v, for horizontal and vertical splits
     # respectively.
-    bindsym $mod+b splith
-    bindsym $mod+v splitv
+    bindsym $mod+o splith
+    bindsym $mod+u splitv
 
     # Switch the current container between different layout styles
     bindsym $mod+s layout stacking
@@ -210,6 +211,9 @@ output DP-2 pos 2560 0 res 12560x1440@143.998Hz
 
 workspace 1 output DP-1
 workspace 1 output DP-1
+
+default_border pixel 3
+gaps inner 5px
 # Include configs from 3 locations:
 #  - /usr/share/sway/config.d
 #  - /etc/sway/config.d
