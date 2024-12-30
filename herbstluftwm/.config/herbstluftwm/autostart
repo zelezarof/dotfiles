@@ -182,7 +182,6 @@ hc unlock
 # hc set_monitors 1280x1024+0+0 1280x1024+1280+0
 # or simply:
 hc detect_monitors
-vmware-user-suid-wrapper & disown
 picom & disown
 
 # find the panel

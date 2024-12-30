@@ -1,7 +1,7 @@
 [font]
 normal = { family = "ZedMono Nerd Font", style = "regular"}
 bold = { family = "ZedMono Nerd Font", style = "regular"}
-size = 13
+size = 13.5
 
 [window]
 dimensions = { columns = 130, lines = 30 }

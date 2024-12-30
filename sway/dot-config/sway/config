@@ -21,18 +21,18 @@ set $term alacritty
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
 # Recommends: rofi-wayland
-set $rofi_cmd rofi \
-        -terminal '$term'
+set $rofi_cmd rofi -terminal '$term'
+
 # Shows a combined list of the applications with desktop files and
 # executables from PATH.
 # TODO: add window with the next release of rofi-wayland
-set $menu $rofi_cmd -show combi -combi-modes drun#run -modes combi
-
+# set $menu rofi -show combi -combi-modes drun#run -modes combi --show-icons 
+set $menu rofi -show drun -show-icons
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 # Requires: desktop-backgrounds-compat, swaybg
-output * bg /usr/share/backgrounds/f41/default/f41-01-day.png fill
+# output * bg /usr/share/backgrounds/f41/default/f41-01-day.png fill
 
 #
 # Example configuration:
@@ -86,7 +86,7 @@ output * bg /usr/share/backgrounds/f41/default/f41-01-day.png fill
     # Despite the name, also works for non-floating windows.
     # Change normal to inverse to use left mouse button for resizing and right
     # mouse button for dragging.
-    floating_modifier $mod normal
+    # floating_modifier $mod normal
 
     # Reload the configuration file
     bindsym $mod+Shift+r reload
@@ -206,12 +206,6 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-output DP-1 pos 0 0 res 2560x1440@239.972Hz
-output DP-2 pos 2560 0 res 12560x1440@143.998Hz
-
-workspace 1 output DP-1
-workspace 1 output DP-1
-
 default_border pixel 3
 gaps inner 5px
 # Include configs from 3 locations:
@@ -235,4 +229,34 @@ gaps inner 5px
 # important to make the magic work. And if you want to learn the secret behind
 # the trick, it's all in the `wordexp(3)`.
 #
-include '$(/usr/libexec/sway/layered-include "/usr/share/sway/config.d/*.conf" "/etc/sway/config.d/*.conf" "${XDG_CONFIG_HOME:-$HOME/.config}/sway/config.d/*.conf")'
+# include '$(/usr/libexec/sway/layered-include "/usr/share/sway/config.d/*.conf" "/etc/sway/config.d/*.conf" "${XDG_CONFIG_HOME:-$HOME/.config}/sway/config.d/*.conf")'
+# class                 border  bground text    indicator child_border
+client.focused          #83CAFA #51A2DA #FFFFFF #83CAFA   #51A2DA
+client.focused_inactive #8C8C8C #4C4C4C #FFFFFF #4C4C4C   #8C8C8C
+client.unfocused        #4C4C4C #222222 #888888 #292D2E   #222222
+client.urgent           #EC69A0 #DB3279 #FFFFFF #DB3279   #DB3279
+client.placeholder      #000000 #0C0C0C #FFFFFF #000000   #0C0C0C
+
+client.background       #FFFFFF
+
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+bar {
+  position top
+  colors {
+    background #000000
+    statusline #FFFFFF
+    separator  #666666
+
+    focused_workspace  #83CAFA #51A2DA #FFFFFF
+    active_workspace   #3C6EB4 #294172 #FFFFFF
+    inactive_workspace #8C8C8C #4C4C4C #888888
+    urgent_workspace   #EC69A0 #DB3279 #FFFFFF
+    binding_mode       #b691d3 #A07CBC #FFFFFF
+  }
+  status_command i3status
+  font pango:"ZedMono Nerd Font" 10
+}
+
+exec --no-startup-id picom
+exec ~/.fehbg
