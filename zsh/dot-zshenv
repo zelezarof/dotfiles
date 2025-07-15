@@ -74,8 +74,8 @@ fi
 
 
 ################################################################################
-#                                   DotNet                                     #
+#                                 1Password                                    #
 ################################################################################
-if [[ -e "${XDG_DATA_HOME}/vintagestory" ]]; then
-    export VINTAGE_STORY="${XDG_DATA_HOME}/vintagestory"
+if [[ -e "${HOME}/.1password/agent.sock" ]]; then
+    export SSH_AUTH_SOCK="${HOME}/.1password/agent.sock"
 fi

@@ -3,3 +3,10 @@
 [user]
 	email = zelezarof@gmail.com
 	name = Jose M Zelezarof
+	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILruxCQCeFT1JKtI5p/kGpRrFzP5Na6U/EgNSe42WDmm
+[gpg]
+	format = ssh
+[gpg "ssh"]
+	program = /opt/1Password/op-ssh-sign
+[commit]
+	gpgsign = true
