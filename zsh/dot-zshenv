@@ -2,7 +2,7 @@
 ################################################################################
 #                                     Term                                     #
 ################################################################################
-export TERMINAL="alacritty"
+export TERMINAL="ghostty"
 
 
 ################################################################################
@@ -33,7 +33,7 @@ export XDG_BIN_HOME="${HOME}/.local/bin"
 ################################################################################
 #                                  Bin Folder                                  #
 ################################################################################
-if [[ -e ${XDG_BIN_HOME} && ! $PATH =~ ${XDG_BIN_HOME} ]]; then
+if [[ -e ${XDG_BIN_HOME} && ! ${PATH} =~ ${XDG_BIN_HOME} ]]; then
         export PATH="${XDG_BIN_HOME}:$PATH"
 fi
 
@@ -42,9 +42,40 @@ fi
 #                                    GoEnv                                     #
 ################################################################################
 export GOPATH=/home/zelezarof/.local/lib/go
-export PATH=${GOPATH}/bin:${PATH}
+if [[ -e ${GOPATH} ]]; then
+    export PATH="${GOPATH}/bin:${PATH}"
+fi
+
+
+################################################################################
+#                                  DoomEmacs                                   #
+################################################################################
+if [[ -e ${XDG_CONFIG_HOME}/emacs/bin ]]; then
+    export PATH="${XDG_CONFIG_HOME}/emacs/bin:${PATH}"
+fi
+
 
 ################################################################################
 #                                    PyEnv                                     #
 ################################################################################
-export PYENV_ROOT=${XDG_DATA_HOME}/pyenv
+if [[ -e "${HOME}/.pyenv" ]]; then
+    export PYENV_ROOT="${HOME}/.pyenv"
+fi
+
+
+################################################################################
+#                                   DotNet                                     #
+################################################################################
+export DOTNET_INSTALL_DIR="${XDG_DATA_HOME}/dotnet"
+if [[ -e ${DOTNET_INSTALL_DIR} && ! ${PATH} =~ ${DOTNET_INSTALL_DIR} ]]; then
+    export DOTNET_ROOT=${DOTNET_INSTALL_DIR}
+    export PATH="${PATH}:${DOTNET_ROOT}:${DOTNET_ROOT}/tools"
+fi
+
+
+################################################################################
+#                                   DotNet                                     #
+################################################################################
+if [[ -e "${XDG_DATA_HOME}/vintagestory" ]]; then
+    export VINTAGE_STORY="${XDG_DATA_HOME}/vintagestory"
+fi

@@ -2,7 +2,7 @@
 ##########################################################
 ##                   Prompt                             ##
 ##########################################################
-eval "$(oh-my-posh init zsh --config ${XDG_CONFIG_HOME}/ohmyposh/zen.toml)" 
+fpath=($HOME/.local/src/pure $fpath)
 
 
 ##########################################################
@@ -74,4 +74,6 @@ fi
 ##########################################################
 ##                      Completion                      ##
 ##########################################################
-autoload -U compinit; compinit
+autoload -Uz compinit; compinit
+autoload -U promptinit; promptinit
+prompt pure

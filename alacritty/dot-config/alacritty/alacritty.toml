@@ -1,6 +1,6 @@
 [font]
-normal = { family = "ZedMono Nerd Font", style = "regular"}
-bold = { family = "ZedMono Nerd Font", style = "regular"}
+normal = { family = "Iosevka Nerd Font Mono", style = "regular"}
+bold = { family = "Iosevka Nerd Font Mono", style = "regular"}
 size = 13.5
 
 [window]
