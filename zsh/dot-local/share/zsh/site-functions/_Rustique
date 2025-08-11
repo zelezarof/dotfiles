@@ -1,0 +1,2179 @@
+#compdef Rustique
+
+autoload -U is-at-least
+
+_Rustique() {
+    typeset -A opt_args
+    typeset -a _arguments_options
+    local ret=1
+
+    if is-at-least 5.2; then
+        _arguments_options=(-s -S -C)
+    else
+        _arguments_options=(-s -C)
+    fi
+
+    local context curcontext="$curcontext" state line
+    _arguments "${_arguments_options[@]}" : \
+'-m+[Specify the directory to manage mods. This takes priority over any other directory setting, including from the config file]:MODS_DIR:_default' \
+'--mods-dir=[Specify the directory to manage mods. This takes priority over any other directory setting, including from the config file]:MODS_DIR:_default' \
+'-w+[This command will set the working mod directory to be that of the modpack specified, INCLUDING modpacks you create. If you use this to work on a custom modpack, you will need to run Rustique modpack create again to update your modpack file, just set the --mpk-id to the same one you used before to overwrite the old one]:WITH_MPK:_default' \
+'--with-mpk=[This command will set the working mod directory to be that of the modpack specified, INCLUDING modpacks you create. If you use this to work on a custom modpack, you will need to run Rustique modpack create again to update your modpack file, just set the --mpk-id to the same one you used before to overwrite the old one]:WITH_MPK:_default' \
+'-v[Shows info level logging messages. This is very noisy, used for debugging]' \
+'--verbose[Shows info level logging messages. This is very noisy, used for debugging]' \
+'-d[Shows all logging messages. This is EXTREMELY noisy. Only run this if you have to]' \
+'--debug[Shows all logging messages. This is EXTREMELY noisy. Only run this if you have to]' \
+'-h[Print help]' \
+'--help[Print help]' \
+'-V[Print version]' \
+'--version[Print version]' \
+":: :_Rustique_commands" \
+"*::: :->Rustique" \
+&& ret=0
+    case $state in
+    (Rustique)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:Rustique-command-$line[1]:"
+        case $line[1] in
+            (sync)
+_arguments "${_arguments_options[@]}" : \
+'-s[Sync the mod info from the api endpoint /api/mods and save it locally]' \
+'--sync-search-db[Sync the mod info from the api endpoint /api/mods and save it locally]' \
+'-g[Sync a local list of all game versions from the api. This is used with version pinning to ensure we have accurate version numbers]' \
+'--sync-game-versions[Sync a local list of all game versions from the api. This is used with version pinning to ensure we have accurate version numbers]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'-V[Print version]' \
+'--version[Print version]' \
+&& ret=0
+;;
+(list)
+_arguments "${_arguments_options[@]}" : \
+'-g+[(Does not work with modpack commands) List all game versions for MAJOR.MINOR\: Example, Rustique list --game-versions 1.20, which will show all valid versions for 1.20.x, --game-versions 1 will show all versions 1.x.x]:MAJOR.MINOR:_default' \
+'--game-versions=[(Does not work with modpack commands) List all game versions for MAJOR.MINOR\: Example, Rustique list --game-versions 1.20, which will show all valid versions for 1.20.x, --game-versions 1 will show all versions 1.x.x]:MAJOR.MINOR:_default' \
+'-e+[Instead of printing the text table, export to this type instead. IF you use csv AND show the changelog column, you may not be able to redirect to a file as long text can get truncated. Use -f /path/to/save.csv instead]:EXPORT_AS:(csv)' \
+'--export-as=[Instead of printing the text table, export to this type instead. IF you use csv AND show the changelog column, you may not be able to redirect to a file as long text can get truncated. Use -f /path/to/save.csv instead]:EXPORT_AS:(csv)' \
+'*-c+[Show specific columns for the list output. This flag takes priority over the config values for the list display]:COLUMNS:(name mod-id version latest-version deps missing-deps changelog description website game-version last-update-local last-update-remote pinned-version has-backup filename mod-url)' \
+'*--columns=[Show specific columns for the list output. This flag takes priority over the config values for the list display]:COLUMNS:(name mod-id version latest-version deps missing-deps changelog description website game-version last-update-local last-update-remote pinned-version has-backup filename mod-url)' \
+'-f+[Set this to save output to file INSTEAD of stdout, used with --export-as]:PATH:_files' \
+'--file-path=[Set this to save output to file INSTEAD of stdout, used with --export-as]:PATH:_files' \
+'-u[List only mods that need updating]' \
+'--updates[List only mods that need updating]' \
+'-h[Print help]' \
+'--help[Print help]' \
+'-V[Print version]' \
+'--version[Print version]' \
+&& ret=0
+;;
+(update)
+_arguments "${_arguments_options[@]}" : \
+'-a[Update all mods, don'\''t set a <name>. Example\: ./Rustique update --all]' \
+'--all[Update all mods, don'\''t set a <name>. Example\: ./Rustique update --all]' \
+'-k[Update mods but keep old version]' \
+'--keep-old-files[Update mods but keep old version]' \
+'-h[Print help]' \
+'--help[Print help]' \
+'-V[Print version]' \
+'--version[Print version]' \
+'*::mod_ids -- Update specific mod, must be mod_id. Example\: ./Rustique update alchemy:_default' \
+&& ret=0
+;;
+(install)
+_arguments "${_arguments_options[@]}" : \
+'-i[Setting this flag will prevent Rustique from installing dependencies discovered during installation]' \
+'--ignore-dependencies[Setting this flag will prevent Rustique from installing dependencies discovered during installation]' \
+'-m[This flag will install all missing dependencies found within your mod directory]' \
+'--missing-dependencies[This flag will install all missing dependencies found within your mod directory]' \
+'-h[Print help]' \
+'--help[Print help]' \
+'-V[Print version]' \
+'--version[Print version]' \
+'*::mod_ids -- List all the mods you want to install with a space between each mod. Example ./Rustique install alchemy combatoverhaul:_default' \
+&& ret=0
+;;
+(search)
+_arguments "${_arguments_options[@]}" : \
+'-q+[This text query will search all available text fields, author, summary, name, urlalias, tags, side, type]:QUERY:_default' \
+'--query=[This text query will search all available text fields, author, summary, name, urlalias, tags, side, type]:QUERY:_default' \
+'-c+[]:COLOR:(black blue cyan dark-cyan dark-blue green dark-green grey dark-grey magenta dark-magenta red dark-red white yellow dark-yellow reset)' \
+'--color=[]:COLOR:(black blue cyan dark-cyan dark-blue green dark-green grey dark-grey magenta dark-magenta red dark-red white yellow dark-yellow reset)' \
+'-f+[If you know the field name from the api you can search on it directly]:FIELD:(name summary author mod-type side mod-id-str url-alias tags)' \
+'--field=[If you know the field name from the api you can search on it directly]:FIELD:(name summary author mod-type side mod-id-str url-alias tags)' \
+'-a+[Search by specific author. Note that the API doesn'\''t appear to include more than 1 author, so this works for just the main author]:AUTHOR:_default' \
+'--author=[Search by specific author. Note that the API doesn'\''t appear to include more than 1 author, so this works for just the main author]:AUTHOR:_default' \
+'-t+[Search by a specific type of tag, example\: Weapons or Technology]:TAG:_default' \
+'--tag=[Search by a specific type of tag, example\: Weapons or Technology]:TAG:_default' \
+'-s+[]:SORT_BY:(mod-id asset-id downloads follows trending comments name author released)' \
+'--sort-by=[]:SORT_BY:(mod-id asset-id downloads follows trending comments name author released)' \
+'-d+[]:SORT_DIRECTION:(asc desc)' \
+'--sort-direction=[]:SORT_DIRECTION:(asc desc)' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'-V[Print version]' \
+'--version[Print version]' \
+&& ret=0
+;;
+(config)
+_arguments "${_arguments_options[@]}" : \
+'-h[Print help]' \
+'--help[Print help]' \
+'-V[Print version]' \
+'--version[Print version]' \
+":: :_Rustique__config_commands" \
+"*::: :->config" \
+&& ret=0
+
+    case $state in
+    (config)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:Rustique-config-command-$line[1]:"
+        case $line[1] in
+            (set)
+_arguments "${_arguments_options[@]}" : \
+'-m+[Default mod directory Rustique will manage]:MODS_DIR:_default' \
+'--mods-dir=[Default mod directory Rustique will manage]:MODS_DIR:_default' \
+'-M+[Default modpack directory]:MODPACKS_DIR:_default' \
+'--modpacks-dir=[Default modpack directory]:MODPACKS_DIR:_default' \
+'-n+[Setting this to '\''true'\'' will show a message if you have unzipped mods in your mod dir]:NOTIFY_OF_UNZIPPED_MODS:(true false)' \
+'--notify-of-unzipped-mods=[Setting this to '\''true'\'' will show a message if you have unzipped mods in your mod dir]:NOTIFY_OF_UNZIPPED_MODS:(true false)' \
+'-p+[Pin a specific game version. Rustique will only download mods that specifically state they support this version]:GAME_VERSION:_default' \
+'--pin-game-version=[Pin a specific game version. Rustique will only download mods that specifically state they support this version]:GAME_VERSION:_default' \
+'-b+[Backup your mods before updating, preserves older versions (WIP)]:BACKUP_MODS:(true false)' \
+'--backup-mods=[Backup your mods before updating, preserves older versions (WIP)]:BACKUP_MODS:(true false)' \
+'-B+[Directory for mod backups]:DIR:_default' \
+'--backup-mods-dir=[Directory for mod backups]:DIR:_default' \
+'-g+[Set the default download directory to save vintage story when you use the download command]:GAME_DOWNLOAD_DIR:_default' \
+'--game-download-dir=[Set the default download directory to save vintage story when you use the download command]:GAME_DOWNLOAD_DIR:_default' \
+'-s+[Displays how long a command takes to complete]:SHOW:(true false)' \
+'--show-execution-time=[Displays how long a command takes to complete]:SHOW:(true false)' \
+'-w+[Specify mod options. Use --pin-version to pin a version]:MOD_ID:_default' \
+'--with-mod=[Specify mod options. Use --pin-version to pin a version]:MOD_ID:_default' \
+'-P+[Use with --with-mod to pin a specific mod version. Use \`Rustique info modid --versions\` to see all available versions]:VERSION:_default' \
+'--pin-version=[Use with --with-mod to pin a specific mod version. Use \`Rustique info modid --versions\` to see all available versions]:VERSION:_default' \
+'--modpack-disabled=[If for some reason your rustique config gets messed and you have modpacks installed, but not enabled, use this command to add it back to the disabled list so you can enable it again]:MPK_ID:_default' \
+'--modpack-enabled=[If your rustique config gets messed up and you had modpack(s) enabled, use this to readd it to the config. This will allow you to properly manage the modpack again]:MPK_ID:_default' \
+'-c+[Do you want rustique to check for updates automatically?]:CHECK:(true false)' \
+'--check-for-updates=[Do you want rustique to check for updates automatically?]:CHECK:(true false)' \
+'-u+[]:SHOW:(true false)' \
+'--update-default-windows-loc=[]:SHOW:(true false)' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'-V[Print version]' \
+'--version[Print version]' \
+&& ret=0
+;;
+(list)
+_arguments "${_arguments_options[@]}" : \
+'-h[Print help]' \
+'--help[Print help]' \
+'-V[Print version]' \
+'--version[Print version]' \
+&& ret=0
+;;
+(del)
+_arguments "${_arguments_options[@]}" : \
+'-P+[Specify a pinned mod. Use \`Rustique config list\` to see all set mods and their IDs]:MOD_ID:_default' \
+'--pinned-mod=[Specify a pinned mod. Use \`Rustique config list\` to see all set mods and their IDs]:MOD_ID:_default' \
+'--modpack-disabled=[Remove a modpack id from the modpacks.disabled list. ONLY do this if rustique and the config are out of sync and your modpack doesn'\''t exist anymore]:MPK_ID:_default' \
+'--modpack-enabled=[Remove a modpack id from the modpacks.enabled list. ONLY do this if rustique and the config are out of sync and your modpack doesn'\''t exist anymore]:MPK_ID:_default' \
+'-u+[]:SHOW:(true false)' \
+'--update-default-windows-loc=[]:SHOW:(true false)' \
+'-m[Default mod directory]' \
+'--mod-dir[Default mod directory]' \
+'-M[Default modpack dir]' \
+'--modpack-dir[Default modpack dir]' \
+'-p[The highest game version Rustique will use to download mods]' \
+'--pin-game-version[The highest game version Rustique will use to download mods]' \
+'-b[Backup your mods before updating, preserves older versions]' \
+'--backup-mods[Backup your mods before updating, preserves older versions]' \
+'-B[Directory for mod backups]' \
+'--backup-mods-dir[Directory for mod backups]' \
+'-g[]' \
+'--game-download-dir[]' \
+'-n[]' \
+'--notify-of-unzipped-mods[]' \
+'-c[]' \
+'--check-for-updates[]' \
+'-h[Print help]' \
+'--help[Print help]' \
+'-V[Print version]' \
+'--version[Print version]' \
+&& ret=0
+;;
+(table)
+_arguments "${_arguments_options[@]}" : \
+'-h[Print help]' \
+'--help[Print help]' \
+'-V[Print version]' \
+'--version[Print version]' \
+":: :_Rustique__config__table_commands" \
+"*::: :->table" \
+&& ret=0
+
+    case $state in
+    (table)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:Rustique-config-table-command-$line[1]:"
+        case $line[1] in
+            (set)
+_arguments "${_arguments_options[@]}" : \
+'-h[Print help]' \
+'--help[Print help]' \
+'-V[Print version]' \
+'--version[Print version]' \
+":: :_Rustique__config__table__set_commands" \
+"*::: :->set" \
+&& ret=0
+
+    case $state in
+    (set)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:Rustique-config-table-set-command-$line[1]:"
+        case $line[1] in
+            (list)
+_arguments "${_arguments_options[@]}" : \
+'-f+[Field lets you modify 1 cell at a time, this gives you the most granular configuration]:FIELD:(name mod-id version latest-version deps missing-deps changelog description website game-version last-update-local last-update-remote pinned-version has-backup filename mod-url)' \
+'--field=[Field lets you modify 1 cell at a time, this gives you the most granular configuration]:FIELD:(name mod-id version latest-version deps missing-deps changelog description website game-version last-update-local last-update-remote pinned-version has-backup filename mod-url)' \
+'*-F+[Fields lets you modify many fields at the same time. If you use this with --color or --attr you will set ALL provided fields to those colors and with those attributes]:FIELDS:(name mod-id version latest-version deps missing-deps changelog description website game-version last-update-local last-update-remote pinned-version has-backup filename mod-url)' \
+'*--fields=[Fields lets you modify many fields at the same time. If you use this with --color or --attr you will set ALL provided fields to those colors and with those attributes]:FIELDS:(name mod-id version latest-version deps missing-deps changelog description website game-version last-update-local last-update-remote pinned-version has-backup filename mod-url)' \
+'-r+[Set the cell color]:COLOR:(black blue cyan dark-cyan dark-blue green dark-green grey dark-grey magenta dark-magenta red dark-red white yellow dark-yellow reset)' \
+'--color=[Set the cell color]:COLOR:(black blue cyan dark-cyan dark-blue green dark-green grey dark-grey magenta dark-magenta red dark-red white yellow dark-yellow reset)' \
+'-a+[Set the attribute of the cell. For now you can only specify \`1\` attribute at a time]:ATTR:(bold italic underline reset dim no-hidden)' \
+'--attr=[Set the attribute of the cell. For now you can only specify \`1\` attribute at a time]:ATTR:(bold italic underline reset dim no-hidden)' \
+'-H[Use this flag to modify the table headers]' \
+'--headers[Use this flag to modify the table headers]' \
+'-C[Use this flag to modify the table cells in the body of the table]' \
+'--cells[Use this flag to modify the table cells in the body of the table]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'-V[Print version]' \
+'--version[Print version]' \
+&& ret=0
+;;
+(search)
+_arguments "${_arguments_options[@]}" : \
+'-f+[Field lets you modify 1 cell at a time, this gives you the most granular configuration]:FIELD:(name mod-id downloads follows trending comments summary modid-strs asset-id author url-alias side type tags last-released)' \
+'--field=[Field lets you modify 1 cell at a time, this gives you the most granular configuration]:FIELD:(name mod-id downloads follows trending comments summary modid-strs asset-id author url-alias side type tags last-released)' \
+'*-F+[Fields lets you modify many fields at the same time. If you use this with --color or --attr you will set ALL provided fields to those colors and with those attributes]:FIELDS:(name mod-id downloads follows trending comments summary modid-strs asset-id author url-alias side type tags last-released)' \
+'*--fields=[Fields lets you modify many fields at the same time. If you use this with --color or --attr you will set ALL provided fields to those colors and with those attributes]:FIELDS:(name mod-id downloads follows trending comments summary modid-strs asset-id author url-alias side type tags last-released)' \
+'-r+[Set the cell color]:COLOR:(black blue cyan dark-cyan dark-blue green dark-green grey dark-grey magenta dark-magenta red dark-red white yellow dark-yellow reset)' \
+'--color=[Set the cell color]:COLOR:(black blue cyan dark-cyan dark-blue green dark-green grey dark-grey magenta dark-magenta red dark-red white yellow dark-yellow reset)' \
+'-a+[Set the attribute of the cell. For now you can only specify \`1\` attribute at a time]:ATTR:(bold italic underline reset dim no-hidden)' \
+'--attr=[Set the attribute of the cell. For now you can only specify \`1\` attribute at a time]:ATTR:(bold italic underline reset dim no-hidden)' \
+'-H[Use this flag to modify the table headers]' \
+'--headers[Use this flag to modify the table headers]' \
+'-C[Use this flag to modify the table cells in the body of the table]' \
+'--cells[Use this flag to modify the table cells in the body of the table]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'-V[Print version]' \
+'--version[Print version]' \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" : \
+":: :_Rustique__config__table__set__help_commands" \
+"*::: :->help" \
+&& ret=0
+
+    case $state in
+    (help)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:Rustique-config-table-set-help-command-$line[1]:"
+        case $line[1] in
+            (list)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(search)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+        esac
+    ;;
+esac
+;;
+(del)
+_arguments "${_arguments_options[@]}" : \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'-V[Print version]' \
+'--version[Print version]' \
+":: :_Rustique__config__table__del_commands" \
+"*::: :->del" \
+&& ret=0
+
+    case $state in
+    (del)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:Rustique-config-table-del-command-$line[1]:"
+        case $line[1] in
+            (list)
+_arguments "${_arguments_options[@]}" : \
+'-f+[Field lets you modify 1 cell at a time, this gives you the most granular configuration]:FIELD:(name mod-id version latest-version deps missing-deps changelog description website game-version last-update-local last-update-remote pinned-version has-backup filename mod-url)' \
+'--field=[Field lets you modify 1 cell at a time, this gives you the most granular configuration]:FIELD:(name mod-id version latest-version deps missing-deps changelog description website game-version last-update-local last-update-remote pinned-version has-backup filename mod-url)' \
+'*-F+[Fields lets you modify many fields at the same time. If you use this with --color or --attr you will set ALL provided fields to those colors and with those attributes]:FIELDS:(name mod-id version latest-version deps missing-deps changelog description website game-version last-update-local last-update-remote pinned-version has-backup filename mod-url)' \
+'*--fields=[Fields lets you modify many fields at the same time. If you use this with --color or --attr you will set ALL provided fields to those colors and with those attributes]:FIELDS:(name mod-id version latest-version deps missing-deps changelog description website game-version last-update-local last-update-remote pinned-version has-backup filename mod-url)' \
+'-r+[Set the cell color]:COLOR:(black blue cyan dark-cyan dark-blue green dark-green grey dark-grey magenta dark-magenta red dark-red white yellow dark-yellow reset)' \
+'--color=[Set the cell color]:COLOR:(black blue cyan dark-cyan dark-blue green dark-green grey dark-grey magenta dark-magenta red dark-red white yellow dark-yellow reset)' \
+'-a+[Set the attribute of the cell. For now you can only specify \`1\` attribute at a time]:ATTR:(bold italic underline reset dim no-hidden)' \
+'--attr=[Set the attribute of the cell. For now you can only specify \`1\` attribute at a time]:ATTR:(bold italic underline reset dim no-hidden)' \
+'-H[Use this flag to modify the table headers]' \
+'--headers[Use this flag to modify the table headers]' \
+'-C[Use this flag to modify the table cells in the body of the table]' \
+'--cells[Use this flag to modify the table cells in the body of the table]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'-V[Print version]' \
+'--version[Print version]' \
+&& ret=0
+;;
+(search)
+_arguments "${_arguments_options[@]}" : \
+'-f+[Field lets you modify 1 cell at a time, this gives you the most granular configuration]:FIELD:(name mod-id downloads follows trending comments summary modid-strs asset-id author url-alias side type tags last-released)' \
+'--field=[Field lets you modify 1 cell at a time, this gives you the most granular configuration]:FIELD:(name mod-id downloads follows trending comments summary modid-strs asset-id author url-alias side type tags last-released)' \
+'*-F+[Fields lets you modify many fields at the same time. If you use this with --color or --attr you will set ALL provided fields to those colors and with those attributes]:FIELDS:(name mod-id downloads follows trending comments summary modid-strs asset-id author url-alias side type tags last-released)' \
+'*--fields=[Fields lets you modify many fields at the same time. If you use this with --color or --attr you will set ALL provided fields to those colors and with those attributes]:FIELDS:(name mod-id downloads follows trending comments summary modid-strs asset-id author url-alias side type tags last-released)' \
+'-r+[Set the cell color]:COLOR:(black blue cyan dark-cyan dark-blue green dark-green grey dark-grey magenta dark-magenta red dark-red white yellow dark-yellow reset)' \
+'--color=[Set the cell color]:COLOR:(black blue cyan dark-cyan dark-blue green dark-green grey dark-grey magenta dark-magenta red dark-red white yellow dark-yellow reset)' \
+'-a+[Set the attribute of the cell. For now you can only specify \`1\` attribute at a time]:ATTR:(bold italic underline reset dim no-hidden)' \
+'--attr=[Set the attribute of the cell. For now you can only specify \`1\` attribute at a time]:ATTR:(bold italic underline reset dim no-hidden)' \
+'-H[Use this flag to modify the table headers]' \
+'--headers[Use this flag to modify the table headers]' \
+'-C[Use this flag to modify the table cells in the body of the table]' \
+'--cells[Use this flag to modify the table cells in the body of the table]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'-V[Print version]' \
+'--version[Print version]' \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" : \
+":: :_Rustique__config__table__del__help_commands" \
+"*::: :->help" \
+&& ret=0
+
+    case $state in
+    (help)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:Rustique-config-table-del-help-command-$line[1]:"
+        case $line[1] in
+            (list)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(search)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+        esac
+    ;;
+esac
+;;
+(list)
+_arguments "${_arguments_options[@]}" : \
+'-h[Print help]' \
+'--help[Print help]' \
+'-V[Print version]' \
+'--version[Print version]' \
+&& ret=0
+;;
+(reset)
+_arguments "${_arguments_options[@]}" : \
+'-h[Print help]' \
+'--help[Print help]' \
+'-V[Print version]' \
+'--version[Print version]' \
+":: :_Rustique__config__table__reset_commands" \
+"*::: :->reset" \
+&& ret=0
+
+    case $state in
+    (reset)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:Rustique-config-table-reset-command-$line[1]:"
+        case $line[1] in
+            (list)
+_arguments "${_arguments_options[@]}" : \
+'-h[Print help]' \
+'--help[Print help]' \
+'-V[Print version]' \
+'--version[Print version]' \
+&& ret=0
+;;
+(search)
+_arguments "${_arguments_options[@]}" : \
+'-h[Print help]' \
+'--help[Print help]' \
+'-V[Print version]' \
+'--version[Print version]' \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" : \
+":: :_Rustique__config__table__reset__help_commands" \
+"*::: :->help" \
+&& ret=0
+
+    case $state in
+    (help)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:Rustique-config-table-reset-help-command-$line[1]:"
+        case $line[1] in
+            (list)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(search)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+        esac
+    ;;
+esac
+;;
+(help)
+_arguments "${_arguments_options[@]}" : \
+":: :_Rustique__config__table__help_commands" \
+"*::: :->help" \
+&& ret=0
+
+    case $state in
+    (help)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:Rustique-config-table-help-command-$line[1]:"
+        case $line[1] in
+            (set)
+_arguments "${_arguments_options[@]}" : \
+":: :_Rustique__config__table__help__set_commands" \
+"*::: :->set" \
+&& ret=0
+
+    case $state in
+    (set)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:Rustique-config-table-help-set-command-$line[1]:"
+        case $line[1] in
+            (list)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(search)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+(del)
+_arguments "${_arguments_options[@]}" : \
+":: :_Rustique__config__table__help__del_commands" \
+"*::: :->del" \
+&& ret=0
+
+    case $state in
+    (del)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:Rustique-config-table-help-del-command-$line[1]:"
+        case $line[1] in
+            (list)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(search)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+(list)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(reset)
+_arguments "${_arguments_options[@]}" : \
+":: :_Rustique__config__table__help__reset_commands" \
+"*::: :->reset" \
+&& ret=0
+
+    case $state in
+    (reset)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:Rustique-config-table-help-reset-command-$line[1]:"
+        case $line[1] in
+            (list)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(search)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+(help)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+        esac
+    ;;
+esac
+;;
+(help)
+_arguments "${_arguments_options[@]}" : \
+":: :_Rustique__config__help_commands" \
+"*::: :->help" \
+&& ret=0
+
+    case $state in
+    (help)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:Rustique-config-help-command-$line[1]:"
+        case $line[1] in
+            (set)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(list)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(del)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(table)
+_arguments "${_arguments_options[@]}" : \
+":: :_Rustique__config__help__table_commands" \
+"*::: :->table" \
+&& ret=0
+
+    case $state in
+    (table)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:Rustique-config-help-table-command-$line[1]:"
+        case $line[1] in
+            (set)
+_arguments "${_arguments_options[@]}" : \
+":: :_Rustique__config__help__table__set_commands" \
+"*::: :->set" \
+&& ret=0
+
+    case $state in
+    (set)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:Rustique-config-help-table-set-command-$line[1]:"
+        case $line[1] in
+            (list)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(search)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+(del)
+_arguments "${_arguments_options[@]}" : \
+":: :_Rustique__config__help__table__del_commands" \
+"*::: :->del" \
+&& ret=0
+
+    case $state in
+    (del)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:Rustique-config-help-table-del-command-$line[1]:"
+        case $line[1] in
+            (list)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(search)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+(list)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(reset)
+_arguments "${_arguments_options[@]}" : \
+":: :_Rustique__config__help__table__reset_commands" \
+"*::: :->reset" \
+&& ret=0
+
+    case $state in
+    (reset)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:Rustique-config-help-table-reset-command-$line[1]:"
+        case $line[1] in
+            (list)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(search)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+        esac
+    ;;
+esac
+;;
+(help)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+        esac
+    ;;
+esac
+;;
+(misc)
+_arguments "${_arguments_options[@]}" : \
+'-g+[]:SHELL:(bash fish zsh power-shell)' \
+'--gen-auto-complete=[]:SHELL:(bash fish zsh power-shell)' \
+'-h[Print help]' \
+'--help[Print help]' \
+'-V[Print version]' \
+'--version[Print version]' \
+&& ret=0
+;;
+(download)
+_arguments "${_arguments_options[@]}" : \
+'-s+[Set where you want to save the download. By default, this will be your Downloads dir OR whatever is set in your rustique config]:PATH:_default' \
+'--save-dir=[Set where you want to save the download. By default, this will be your Downloads dir OR whatever is set in your rustique config]:PATH:_default' \
+'-g+[To see valid game versions use \`Rustique list --game-versions\`, default is latest stable version]:VERSION:_default' \
+'--game-version=[To see valid game versions use \`Rustique list --game-versions\`, default is latest stable version]:VERSION:_default' \
+'-o+[Choose the os type to download]:OS:(linux osx windows)' \
+'--os-type=[Choose the os type to download]:OS:(linux osx windows)' \
+'-t+[Select executable type, client by default. Note\: Mac \`DOES NOT\` have a server]:TYPE:(server client)' \
+'--type=[Select executable type, client by default. Note\: Mac \`DOES NOT\` have a server]:TYPE:(server client)' \
+'-w+[This lets you choose between the installer or update exe for Windows only, this flag is ignored if os_type = linux/osx]:WINDOWS_INSTALLER_TYPE:(install update)' \
+'--windows-installer-type=[This lets you choose between the installer or update exe for Windows only, this flag is ignored if os_type = linux/osx]:WINDOWS_INSTALLER_TYPE:(install update)' \
+'-h[Print help]' \
+'--help[Print help]' \
+'-V[Print version]' \
+'--version[Print version]' \
+&& ret=0
+;;
+(info)
+_arguments "${_arguments_options[@]}" : \
+'-v+[Shows the last NUM amount of versions. Use with 0 to see ALL versions]:NUM:_default' \
+'--show-versions=[Shows the last NUM amount of versions. Use with 0 to see ALL versions]:NUM:_default' \
+'-d[Shows the description of the mod, Note\: This can take a lot of space in the terminal]' \
+'--show-description[Shows the description of the mod, Note\: This can take a lot of space in the terminal]' \
+'-h[Print help]' \
+'--help[Print help]' \
+'-V[Print version]' \
+'--version[Print version]' \
+'*::mod_id:_default' \
+&& ret=0
+;;
+(modpack)
+_arguments "${_arguments_options[@]}" : \
+'-h[Print help]' \
+'--help[Print help]' \
+'-V[Print version]' \
+'--version[Print version]' \
+":: :_Rustique__modpack_commands" \
+"*::: :->modpack" \
+&& ret=0
+
+    case $state in
+    (modpack)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:Rustique-modpack-command-$line[1]:"
+        case $line[1] in
+            (create)
+_arguments "${_arguments_options[@]}" : \
+'-n+[*Required* This is the long form name of your modpack, "Theysa magic mod pack"]:NAME:_default' \
+'--name=[*Required* This is the long form name of your modpack, "Theysa magic mod pack"]:NAME:_default' \
+'-m+[*Required* This is the ID rustique will use, "theysa_magicmpk". This is also the id that should be set as the url on the mods website, so they match]:MPK_ID:_default' \
+'--mpk-id=[*Required* This is the ID rustique will use, "theysa_magicmpk". This is also the id that should be set as the url on the mods website, so they match]:MPK_ID:_default' \
+'-v+[*Required* This is the version of your modpack. Needed to keep track of updates]:MPK_VERSION:_default' \
+'--mpk-version=[*Required* This is the version of your modpack. Needed to keep track of updates]:MPK_VERSION:_default' \
+'-g+[*Optional* This pins the game version so only mods that declared themselves compatible will be pulled into the pack. Default is set to the latest stable game version]:GAME_VERSION:_default' \
+'--game-version=[*Optional* This pins the game version so only mods that declared themselves compatible will be pulled into the pack. Default is set to the latest stable game version]:GAME_VERSION:_default' \
+'-d+[*Optional* Description of your mod pack]:DESCRIPTION:_default' \
+'--description=[*Optional* Description of your mod pack]:DESCRIPTION:_default' \
+'-a+[*Optional* Author]:AUTHOR:_default' \
+'--author=[*Optional* Author]:AUTHOR:_default' \
+'-c+[*Optional* Contact]:CONTACT:_default' \
+'--contact=[*Optional* Contact]:CONTACT:_default' \
+'-w+[*Optional* Website]:WEBSITE:_default' \
+'--website=[*Optional* Website]:WEBSITE:_default' \
+'-s+[*Optional* Location to save modpack, default is ~/.config/rustique/modpacks/mypacks]:PATH:_default' \
+'--save-path=[*Optional* Location to save modpack, default is ~/.config/rustique/modpacks/mypacks]:PATH:_default' \
+'-I[*Optional* By default, when you create a modpack it will grab ALL mods in the specified dir, including mods from other modpacks you have enabled. If you want to ignore the installed modpacks, set this to true]' \
+'--ignore-modpacks[*Optional* By default, when you create a modpack it will grab ALL mods in the specified dir, including mods from other modpacks you have enabled. If you want to ignore the installed modpacks, set this to true]' \
+'-C[*Optional* Copy the mods in your pack instead of moving them. By default, when you create a new modpack, the mods themselves will be moved into a new folder associated with your modpack]' \
+'--copy-mods[*Optional* Copy the mods in your pack instead of moving them. By default, when you create a new modpack, the mods themselves will be moved into a new folder associated with your modpack]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'-V[Print version]' \
+'--version[Print version]' \
+&& ret=0
+;;
+(install)
+_arguments "${_arguments_options[@]}" : \
+'-v+[Download a specific version of the modpack]:VERSION:_default' \
+'--mod-version=[Download a specific version of the modpack]:VERSION:_default' \
+'-m[]' \
+'--missing-dependencies[]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'-V[Print version]' \
+'--version[Print version]' \
+':mod_id -- This is the ID from the mods website. This can either be the numerical ModID or the text version. Use `Rustique search -q modpackname` to get the numerical ID if you need:_default' \
+&& ret=0
+;;
+(update)
+_arguments "${_arguments_options[@]}" : \
+'-h[Print help]' \
+'--help[Print help]' \
+'-V[Print version]' \
+'--version[Print version]' \
+':mpk_id:_default' \
+&& ret=0
+;;
+(enable)
+_arguments "${_arguments_options[@]}" : \
+'-f[--force allows you to enable multiple modpacks at once. NOTE\: You may make your world unstable by having modpacks with conflicting mods. There is no way for Rustique to check this, you have been warned]' \
+'--force[--force allows you to enable multiple modpacks at once. NOTE\: You may make your world unstable by having modpacks with conflicting mods. There is no way for Rustique to check this, you have been warned]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'-V[Print version]' \
+'--version[Print version]' \
+':mpk_id -- ID of the modpack to enable. See `Rustique modpack list` to get the correct modpack ID if you don'\''t know it:_default' \
+&& ret=0
+;;
+(disable)
+_arguments "${_arguments_options[@]}" : \
+'-h[Print help]' \
+'--help[Print help]' \
+'-V[Print version]' \
+'--version[Print version]' \
+':mpk_id:_default' \
+&& ret=0
+;;
+(delete)
+_arguments "${_arguments_options[@]}" : \
+'-h[Print help]' \
+'--help[Print help]' \
+'-V[Print version]' \
+'--version[Print version]' \
+':mpk_id:_default' \
+&& ret=0
+;;
+(sync)
+_arguments "${_arguments_options[@]}" : \
+'-h[Print help]' \
+'--help[Print help]' \
+'-V[Print version]' \
+'--version[Print version]' \
+&& ret=0
+;;
+(list)
+_arguments "${_arguments_options[@]}" : \
+'-g+[(Does not work with modpack commands) List all game versions for MAJOR.MINOR\: Example, Rustique list --game-versions 1.20, which will show all valid versions for 1.20.x, --game-versions 1 will show all versions 1.x.x]:MAJOR.MINOR:_default' \
+'--game-versions=[(Does not work with modpack commands) List all game versions for MAJOR.MINOR\: Example, Rustique list --game-versions 1.20, which will show all valid versions for 1.20.x, --game-versions 1 will show all versions 1.x.x]:MAJOR.MINOR:_default' \
+'-e+[Instead of printing the text table, export to this type instead. IF you use csv AND show the changelog column, you may not be able to redirect to a file as long text can get truncated. Use -f /path/to/save.csv instead]:EXPORT_AS:(csv)' \
+'--export-as=[Instead of printing the text table, export to this type instead. IF you use csv AND show the changelog column, you may not be able to redirect to a file as long text can get truncated. Use -f /path/to/save.csv instead]:EXPORT_AS:(csv)' \
+'*-c+[Show specific columns for the list output. This flag takes priority over the config values for the list display]:COLUMNS:(name mod-id version latest-version deps missing-deps changelog description website game-version last-update-local last-update-remote pinned-version has-backup filename mod-url)' \
+'*--columns=[Show specific columns for the list output. This flag takes priority over the config values for the list display]:COLUMNS:(name mod-id version latest-version deps missing-deps changelog description website game-version last-update-local last-update-remote pinned-version has-backup filename mod-url)' \
+'-f+[Set this to save output to file INSTEAD of stdout, used with --export-as]:PATH:_files' \
+'--file-path=[Set this to save output to file INSTEAD of stdout, used with --export-as]:PATH:_files' \
+'-u[List only mods that need updating]' \
+'--updates[List only mods that need updating]' \
+'-h[Print help]' \
+'--help[Print help]' \
+'-V[Print version]' \
+'--version[Print version]' \
+&& ret=0
+;;
+(info)
+_arguments "${_arguments_options[@]}" : \
+'-v+[Shows the last NUM amount of versions. Use with 0 to see ALL versions]:NUM:_default' \
+'--show-versions=[Shows the last NUM amount of versions. Use with 0 to see ALL versions]:NUM:_default' \
+'-d[Shows the description of the mod, Note\: This can take a lot of space in the terminal]' \
+'--show-description[Shows the description of the mod, Note\: This can take a lot of space in the terminal]' \
+'-h[Print help]' \
+'--help[Print help]' \
+'-V[Print version]' \
+'--version[Print version]' \
+'*::mod_id:_default' \
+&& ret=0
+;;
+(local)
+_arguments "${_arguments_options[@]}" : \
+'-h[Print help]' \
+'--help[Print help]' \
+'-V[Print version]' \
+'--version[Print version]' \
+":: :_Rustique__modpack__local_commands" \
+"*::: :->local" \
+&& ret=0
+
+    case $state in
+    (local)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:Rustique-modpack-local-command-$line[1]:"
+        case $line[1] in
+            (list)
+_arguments "${_arguments_options[@]}" : \
+'-e+[Instead of printing the text table, export to this type instead. IF you use csv AND show the changelog column, you may not be able to redirect to a file as long text can get truncated. Use -f /path/to/save.csv instead]:EXPORT_AS:(csv)' \
+'--export-as=[Instead of printing the text table, export to this type instead. IF you use csv AND show the changelog column, you may not be able to redirect to a file as long text can get truncated. Use -f /path/to/save.csv instead]:EXPORT_AS:(csv)' \
+'*-c+[Show specific columns for the list output. This flag takes priority over the config values for the list display]:COLUMNS:(name mod-id version latest-version deps missing-deps changelog description website game-version last-update-local last-update-remote pinned-version has-backup filename mod-url)' \
+'*--columns=[Show specific columns for the list output. This flag takes priority over the config values for the list display]:COLUMNS:(name mod-id version latest-version deps missing-deps changelog description website game-version last-update-local last-update-remote pinned-version has-backup filename mod-url)' \
+'-f+[Set this to save output to file INSTEAD of stdout, used with --export-as]:PATH:_files' \
+'--file-path=[Set this to save output to file INSTEAD of stdout, used with --export-as]:PATH:_files' \
+'-h[Print help]' \
+'--help[Print help]' \
+'-V[Print version]' \
+'--version[Print version]' \
+&& ret=0
+;;
+(delete)
+_arguments "${_arguments_options[@]}" : \
+'-h[Print help]' \
+'--help[Print help]' \
+'-V[Print version]' \
+'--version[Print version]' \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" : \
+":: :_Rustique__modpack__local__help_commands" \
+"*::: :->help" \
+&& ret=0
+
+    case $state in
+    (help)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:Rustique-modpack-local-help-command-$line[1]:"
+        case $line[1] in
+            (list)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(delete)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+        esac
+    ;;
+esac
+;;
+(help)
+_arguments "${_arguments_options[@]}" : \
+":: :_Rustique__modpack__help_commands" \
+"*::: :->help" \
+&& ret=0
+
+    case $state in
+    (help)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:Rustique-modpack-help-command-$line[1]:"
+        case $line[1] in
+            (create)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(install)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(update)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(enable)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(disable)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(delete)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(sync)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(list)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(info)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(local)
+_arguments "${_arguments_options[@]}" : \
+":: :_Rustique__modpack__help__local_commands" \
+"*::: :->local" \
+&& ret=0
+
+    case $state in
+    (local)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:Rustique-modpack-help-local-command-$line[1]:"
+        case $line[1] in
+            (list)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(delete)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+(help)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+        esac
+    ;;
+esac
+;;
+(self)
+_arguments "${_arguments_options[@]}" : \
+'-c[Manually check if there is a new update for Rustique]' \
+'--check-updates[Manually check if there is a new update for Rustique]' \
+'-u[Update your Rustique binary, if there is one available]' \
+'--update[Update your Rustique binary, if there is one available]' \
+'-f[Force update to the latest version, regardless of current version]' \
+'--force[Force update to the latest version, regardless of current version]' \
+'-h[Print help]' \
+'--help[Print help]' \
+'-V[Print version]' \
+'--version[Print version]' \
+&& ret=0
+;;
+(delete)
+_arguments "${_arguments_options[@]}" : \
+'*-m+[Specify one or more mods to delete. You can delete a specific version with modid@version]:MOD_ID:_default' \
+'*--mod-id=[Specify one or more mods to delete. You can delete a specific version with modid@version]:MOD_ID:_default' \
+'-a+[Deletes all specified; mods or backups]:TYPE:(mods backups both)' \
+'--all=[Deletes all specified; mods or backups]:TYPE:(mods backups both)' \
+'-b[Used with mod_id, if you set this, it will delete the mods in the backup dir]' \
+'--mod-backups[Used with mod_id, if you set this, it will delete the mods in the backup dir]' \
+'-h[Print help]' \
+'--help[Print help]' \
+'-V[Print version]' \
+'--version[Print version]' \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" : \
+":: :_Rustique__help_commands" \
+"*::: :->help" \
+&& ret=0
+
+    case $state in
+    (help)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:Rustique-help-command-$line[1]:"
+        case $line[1] in
+            (sync)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(list)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(update)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(install)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(search)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(config)
+_arguments "${_arguments_options[@]}" : \
+":: :_Rustique__help__config_commands" \
+"*::: :->config" \
+&& ret=0
+
+    case $state in
+    (config)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:Rustique-help-config-command-$line[1]:"
+        case $line[1] in
+            (set)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(list)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(del)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(table)
+_arguments "${_arguments_options[@]}" : \
+":: :_Rustique__help__config__table_commands" \
+"*::: :->table" \
+&& ret=0
+
+    case $state in
+    (table)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:Rustique-help-config-table-command-$line[1]:"
+        case $line[1] in
+            (set)
+_arguments "${_arguments_options[@]}" : \
+":: :_Rustique__help__config__table__set_commands" \
+"*::: :->set" \
+&& ret=0
+
+    case $state in
+    (set)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:Rustique-help-config-table-set-command-$line[1]:"
+        case $line[1] in
+            (list)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(search)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+(del)
+_arguments "${_arguments_options[@]}" : \
+":: :_Rustique__help__config__table__del_commands" \
+"*::: :->del" \
+&& ret=0
+
+    case $state in
+    (del)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:Rustique-help-config-table-del-command-$line[1]:"
+        case $line[1] in
+            (list)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(search)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+(list)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(reset)
+_arguments "${_arguments_options[@]}" : \
+":: :_Rustique__help__config__table__reset_commands" \
+"*::: :->reset" \
+&& ret=0
+
+    case $state in
+    (reset)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:Rustique-help-config-table-reset-command-$line[1]:"
+        case $line[1] in
+            (list)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(search)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+        esac
+    ;;
+esac
+;;
+        esac
+    ;;
+esac
+;;
+(misc)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(download)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(info)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(modpack)
+_arguments "${_arguments_options[@]}" : \
+":: :_Rustique__help__modpack_commands" \
+"*::: :->modpack" \
+&& ret=0
+
+    case $state in
+    (modpack)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:Rustique-help-modpack-command-$line[1]:"
+        case $line[1] in
+            (create)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(install)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(update)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(enable)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(disable)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(delete)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(sync)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(list)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(info)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(local)
+_arguments "${_arguments_options[@]}" : \
+":: :_Rustique__help__modpack__local_commands" \
+"*::: :->local" \
+&& ret=0
+
+    case $state in
+    (local)
+        words=($line[1] "${words[@]}")
+        (( CURRENT += 1 ))
+        curcontext="${curcontext%:*:*}:Rustique-help-modpack-local-command-$line[1]:"
+        case $line[1] in
+            (list)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(delete)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+        esac
+    ;;
+esac
+;;
+(self)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(delete)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+(help)
+_arguments "${_arguments_options[@]}" : \
+&& ret=0
+;;
+        esac
+    ;;
+esac
+;;
+        esac
+    ;;
+esac
+}
+
+(( $+functions[_Rustique_commands] )) ||
+_Rustique_commands() {
+    local commands; commands=(
+'sync:Checks with the VintageStory mods website for any updates to mods you have installed. Run update after this command to update your mods' \
+'list:List installed mods and their versions and any missing dependencies. Running sync first will show any available updates to your mods' \
+'update:Updates a specific mod OR all mods installed. Runs sync after completion' \
+'install:Install a specific mod. Must use the mod_id, Example\: ./Rustique install alchemy' \
+'search:Search the mod website for new mods, Example\: ./Rustique search -q magic' \
+'config:Manage config options for Rustique' \
+'misc:Miscellaneous items for Rustique, like shell auto-completion' \
+'download:Download a Vintage Story executable' \
+'info:Get more information about the mod specified' \
+'modpack:Create, download, update modpacks for VintageStory' \
+'self:Manage the Rustique binary; Check for updates, perform updates.' \
+'delete:Remove mods and backups' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'Rustique commands' commands "$@"
+}
+(( $+functions[_Rustique__config_commands] )) ||
+_Rustique__config_commands() {
+    local commands; commands=(
+'set:Set a value in the config file' \
+'list:List all config options and their current values' \
+'del:Deletes an option, returning it to the default value. You can set multiple values at the same time\: Rustique config del -mzB' \
+'table:Configure the tables for \`List\` and \`Search\`' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'Rustique config commands' commands "$@"
+}
+(( $+functions[_Rustique__config__del_commands] )) ||
+_Rustique__config__del_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique config del commands' commands "$@"
+}
+(( $+functions[_Rustique__config__help_commands] )) ||
+_Rustique__config__help_commands() {
+    local commands; commands=(
+'set:Set a value in the config file' \
+'list:List all config options and their current values' \
+'del:Deletes an option, returning it to the default value. You can set multiple values at the same time\: Rustique config del -mzB' \
+'table:Configure the tables for \`List\` and \`Search\`' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'Rustique config help commands' commands "$@"
+}
+(( $+functions[_Rustique__config__help__del_commands] )) ||
+_Rustique__config__help__del_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique config help del commands' commands "$@"
+}
+(( $+functions[_Rustique__config__help__help_commands] )) ||
+_Rustique__config__help__help_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique config help help commands' commands "$@"
+}
+(( $+functions[_Rustique__config__help__list_commands] )) ||
+_Rustique__config__help__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique config help list commands' commands "$@"
+}
+(( $+functions[_Rustique__config__help__set_commands] )) ||
+_Rustique__config__help__set_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique config help set commands' commands "$@"
+}
+(( $+functions[_Rustique__config__help__table_commands] )) ||
+_Rustique__config__help__table_commands() {
+    local commands; commands=(
+'set:Modify which columns should be present and set their color and attributes' \
+'del:Remove a column from the table\:' \
+'list:Shows the current values defined in the config file' \
+'reset:Reset a table back to the Rustique defaults' \
+    )
+    _describe -t commands 'Rustique config help table commands' commands "$@"
+}
+(( $+functions[_Rustique__config__help__table__del_commands] )) ||
+_Rustique__config__help__table__del_commands() {
+    local commands; commands=(
+'list:Modify the List commands display table' \
+'search:Modify the Search commands display table' \
+    )
+    _describe -t commands 'Rustique config help table del commands' commands "$@"
+}
+(( $+functions[_Rustique__config__help__table__del__list_commands] )) ||
+_Rustique__config__help__table__del__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique config help table del list commands' commands "$@"
+}
+(( $+functions[_Rustique__config__help__table__del__search_commands] )) ||
+_Rustique__config__help__table__del__search_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique config help table del search commands' commands "$@"
+}
+(( $+functions[_Rustique__config__help__table__list_commands] )) ||
+_Rustique__config__help__table__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique config help table list commands' commands "$@"
+}
+(( $+functions[_Rustique__config__help__table__reset_commands] )) ||
+_Rustique__config__help__table__reset_commands() {
+    local commands; commands=(
+'list:Reset the List table to defaults' \
+'search:Reset the Search table to defaults' \
+    )
+    _describe -t commands 'Rustique config help table reset commands' commands "$@"
+}
+(( $+functions[_Rustique__config__help__table__reset__list_commands] )) ||
+_Rustique__config__help__table__reset__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique config help table reset list commands' commands "$@"
+}
+(( $+functions[_Rustique__config__help__table__reset__search_commands] )) ||
+_Rustique__config__help__table__reset__search_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique config help table reset search commands' commands "$@"
+}
+(( $+functions[_Rustique__config__help__table__set_commands] )) ||
+_Rustique__config__help__table__set_commands() {
+    local commands; commands=(
+'list:Modify the List commands display table' \
+'search:Modify the Search commands display table' \
+    )
+    _describe -t commands 'Rustique config help table set commands' commands "$@"
+}
+(( $+functions[_Rustique__config__help__table__set__list_commands] )) ||
+_Rustique__config__help__table__set__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique config help table set list commands' commands "$@"
+}
+(( $+functions[_Rustique__config__help__table__set__search_commands] )) ||
+_Rustique__config__help__table__set__search_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique config help table set search commands' commands "$@"
+}
+(( $+functions[_Rustique__config__list_commands] )) ||
+_Rustique__config__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique config list commands' commands "$@"
+}
+(( $+functions[_Rustique__config__set_commands] )) ||
+_Rustique__config__set_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique config set commands' commands "$@"
+}
+(( $+functions[_Rustique__config__table_commands] )) ||
+_Rustique__config__table_commands() {
+    local commands; commands=(
+'set:Modify which columns should be present and set their color and attributes' \
+'del:Remove a column from the table\:' \
+'list:Shows the current values defined in the config file' \
+'reset:Reset a table back to the Rustique defaults' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'Rustique config table commands' commands "$@"
+}
+(( $+functions[_Rustique__config__table__del_commands] )) ||
+_Rustique__config__table__del_commands() {
+    local commands; commands=(
+'list:Modify the List commands display table' \
+'search:Modify the Search commands display table' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'Rustique config table del commands' commands "$@"
+}
+(( $+functions[_Rustique__config__table__del__help_commands] )) ||
+_Rustique__config__table__del__help_commands() {
+    local commands; commands=(
+'list:Modify the List commands display table' \
+'search:Modify the Search commands display table' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'Rustique config table del help commands' commands "$@"
+}
+(( $+functions[_Rustique__config__table__del__help__help_commands] )) ||
+_Rustique__config__table__del__help__help_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique config table del help help commands' commands "$@"
+}
+(( $+functions[_Rustique__config__table__del__help__list_commands] )) ||
+_Rustique__config__table__del__help__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique config table del help list commands' commands "$@"
+}
+(( $+functions[_Rustique__config__table__del__help__search_commands] )) ||
+_Rustique__config__table__del__help__search_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique config table del help search commands' commands "$@"
+}
+(( $+functions[_Rustique__config__table__del__list_commands] )) ||
+_Rustique__config__table__del__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique config table del list commands' commands "$@"
+}
+(( $+functions[_Rustique__config__table__del__search_commands] )) ||
+_Rustique__config__table__del__search_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique config table del search commands' commands "$@"
+}
+(( $+functions[_Rustique__config__table__help_commands] )) ||
+_Rustique__config__table__help_commands() {
+    local commands; commands=(
+'set:Modify which columns should be present and set their color and attributes' \
+'del:Remove a column from the table\:' \
+'list:Shows the current values defined in the config file' \
+'reset:Reset a table back to the Rustique defaults' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'Rustique config table help commands' commands "$@"
+}
+(( $+functions[_Rustique__config__table__help__del_commands] )) ||
+_Rustique__config__table__help__del_commands() {
+    local commands; commands=(
+'list:Modify the List commands display table' \
+'search:Modify the Search commands display table' \
+    )
+    _describe -t commands 'Rustique config table help del commands' commands "$@"
+}
+(( $+functions[_Rustique__config__table__help__del__list_commands] )) ||
+_Rustique__config__table__help__del__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique config table help del list commands' commands "$@"
+}
+(( $+functions[_Rustique__config__table__help__del__search_commands] )) ||
+_Rustique__config__table__help__del__search_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique config table help del search commands' commands "$@"
+}
+(( $+functions[_Rustique__config__table__help__help_commands] )) ||
+_Rustique__config__table__help__help_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique config table help help commands' commands "$@"
+}
+(( $+functions[_Rustique__config__table__help__list_commands] )) ||
+_Rustique__config__table__help__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique config table help list commands' commands "$@"
+}
+(( $+functions[_Rustique__config__table__help__reset_commands] )) ||
+_Rustique__config__table__help__reset_commands() {
+    local commands; commands=(
+'list:Reset the List table to defaults' \
+'search:Reset the Search table to defaults' \
+    )
+    _describe -t commands 'Rustique config table help reset commands' commands "$@"
+}
+(( $+functions[_Rustique__config__table__help__reset__list_commands] )) ||
+_Rustique__config__table__help__reset__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique config table help reset list commands' commands "$@"
+}
+(( $+functions[_Rustique__config__table__help__reset__search_commands] )) ||
+_Rustique__config__table__help__reset__search_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique config table help reset search commands' commands "$@"
+}
+(( $+functions[_Rustique__config__table__help__set_commands] )) ||
+_Rustique__config__table__help__set_commands() {
+    local commands; commands=(
+'list:Modify the List commands display table' \
+'search:Modify the Search commands display table' \
+    )
+    _describe -t commands 'Rustique config table help set commands' commands "$@"
+}
+(( $+functions[_Rustique__config__table__help__set__list_commands] )) ||
+_Rustique__config__table__help__set__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique config table help set list commands' commands "$@"
+}
+(( $+functions[_Rustique__config__table__help__set__search_commands] )) ||
+_Rustique__config__table__help__set__search_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique config table help set search commands' commands "$@"
+}
+(( $+functions[_Rustique__config__table__list_commands] )) ||
+_Rustique__config__table__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique config table list commands' commands "$@"
+}
+(( $+functions[_Rustique__config__table__reset_commands] )) ||
+_Rustique__config__table__reset_commands() {
+    local commands; commands=(
+'list:Reset the List table to defaults' \
+'search:Reset the Search table to defaults' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'Rustique config table reset commands' commands "$@"
+}
+(( $+functions[_Rustique__config__table__reset__help_commands] )) ||
+_Rustique__config__table__reset__help_commands() {
+    local commands; commands=(
+'list:Reset the List table to defaults' \
+'search:Reset the Search table to defaults' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'Rustique config table reset help commands' commands "$@"
+}
+(( $+functions[_Rustique__config__table__reset__help__help_commands] )) ||
+_Rustique__config__table__reset__help__help_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique config table reset help help commands' commands "$@"
+}
+(( $+functions[_Rustique__config__table__reset__help__list_commands] )) ||
+_Rustique__config__table__reset__help__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique config table reset help list commands' commands "$@"
+}
+(( $+functions[_Rustique__config__table__reset__help__search_commands] )) ||
+_Rustique__config__table__reset__help__search_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique config table reset help search commands' commands "$@"
+}
+(( $+functions[_Rustique__config__table__reset__list_commands] )) ||
+_Rustique__config__table__reset__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique config table reset list commands' commands "$@"
+}
+(( $+functions[_Rustique__config__table__reset__search_commands] )) ||
+_Rustique__config__table__reset__search_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique config table reset search commands' commands "$@"
+}
+(( $+functions[_Rustique__config__table__set_commands] )) ||
+_Rustique__config__table__set_commands() {
+    local commands; commands=(
+'list:Modify the List commands display table' \
+'search:Modify the Search commands display table' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'Rustique config table set commands' commands "$@"
+}
+(( $+functions[_Rustique__config__table__set__help_commands] )) ||
+_Rustique__config__table__set__help_commands() {
+    local commands; commands=(
+'list:Modify the List commands display table' \
+'search:Modify the Search commands display table' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'Rustique config table set help commands' commands "$@"
+}
+(( $+functions[_Rustique__config__table__set__help__help_commands] )) ||
+_Rustique__config__table__set__help__help_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique config table set help help commands' commands "$@"
+}
+(( $+functions[_Rustique__config__table__set__help__list_commands] )) ||
+_Rustique__config__table__set__help__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique config table set help list commands' commands "$@"
+}
+(( $+functions[_Rustique__config__table__set__help__search_commands] )) ||
+_Rustique__config__table__set__help__search_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique config table set help search commands' commands "$@"
+}
+(( $+functions[_Rustique__config__table__set__list_commands] )) ||
+_Rustique__config__table__set__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique config table set list commands' commands "$@"
+}
+(( $+functions[_Rustique__config__table__set__search_commands] )) ||
+_Rustique__config__table__set__search_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique config table set search commands' commands "$@"
+}
+(( $+functions[_Rustique__delete_commands] )) ||
+_Rustique__delete_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique delete commands' commands "$@"
+}
+(( $+functions[_Rustique__download_commands] )) ||
+_Rustique__download_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique download commands' commands "$@"
+}
+(( $+functions[_Rustique__help_commands] )) ||
+_Rustique__help_commands() {
+    local commands; commands=(
+'sync:Checks with the VintageStory mods website for any updates to mods you have installed. Run update after this command to update your mods' \
+'list:List installed mods and their versions and any missing dependencies. Running sync first will show any available updates to your mods' \
+'update:Updates a specific mod OR all mods installed. Runs sync after completion' \
+'install:Install a specific mod. Must use the mod_id, Example\: ./Rustique install alchemy' \
+'search:Search the mod website for new mods, Example\: ./Rustique search -q magic' \
+'config:Manage config options for Rustique' \
+'misc:Miscellaneous items for Rustique, like shell auto-completion' \
+'download:Download a Vintage Story executable' \
+'info:Get more information about the mod specified' \
+'modpack:Create, download, update modpacks for VintageStory' \
+'self:Manage the Rustique binary; Check for updates, perform updates.' \
+'delete:Remove mods and backups' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'Rustique help commands' commands "$@"
+}
+(( $+functions[_Rustique__help__config_commands] )) ||
+_Rustique__help__config_commands() {
+    local commands; commands=(
+'set:Set a value in the config file' \
+'list:List all config options and their current values' \
+'del:Deletes an option, returning it to the default value. You can set multiple values at the same time\: Rustique config del -mzB' \
+'table:Configure the tables for \`List\` and \`Search\`' \
+    )
+    _describe -t commands 'Rustique help config commands' commands "$@"
+}
+(( $+functions[_Rustique__help__config__del_commands] )) ||
+_Rustique__help__config__del_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique help config del commands' commands "$@"
+}
+(( $+functions[_Rustique__help__config__list_commands] )) ||
+_Rustique__help__config__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique help config list commands' commands "$@"
+}
+(( $+functions[_Rustique__help__config__set_commands] )) ||
+_Rustique__help__config__set_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique help config set commands' commands "$@"
+}
+(( $+functions[_Rustique__help__config__table_commands] )) ||
+_Rustique__help__config__table_commands() {
+    local commands; commands=(
+'set:Modify which columns should be present and set their color and attributes' \
+'del:Remove a column from the table\:' \
+'list:Shows the current values defined in the config file' \
+'reset:Reset a table back to the Rustique defaults' \
+    )
+    _describe -t commands 'Rustique help config table commands' commands "$@"
+}
+(( $+functions[_Rustique__help__config__table__del_commands] )) ||
+_Rustique__help__config__table__del_commands() {
+    local commands; commands=(
+'list:Modify the List commands display table' \
+'search:Modify the Search commands display table' \
+    )
+    _describe -t commands 'Rustique help config table del commands' commands "$@"
+}
+(( $+functions[_Rustique__help__config__table__del__list_commands] )) ||
+_Rustique__help__config__table__del__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique help config table del list commands' commands "$@"
+}
+(( $+functions[_Rustique__help__config__table__del__search_commands] )) ||
+_Rustique__help__config__table__del__search_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique help config table del search commands' commands "$@"
+}
+(( $+functions[_Rustique__help__config__table__list_commands] )) ||
+_Rustique__help__config__table__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique help config table list commands' commands "$@"
+}
+(( $+functions[_Rustique__help__config__table__reset_commands] )) ||
+_Rustique__help__config__table__reset_commands() {
+    local commands; commands=(
+'list:Reset the List table to defaults' \
+'search:Reset the Search table to defaults' \
+    )
+    _describe -t commands 'Rustique help config table reset commands' commands "$@"
+}
+(( $+functions[_Rustique__help__config__table__reset__list_commands] )) ||
+_Rustique__help__config__table__reset__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique help config table reset list commands' commands "$@"
+}
+(( $+functions[_Rustique__help__config__table__reset__search_commands] )) ||
+_Rustique__help__config__table__reset__search_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique help config table reset search commands' commands "$@"
+}
+(( $+functions[_Rustique__help__config__table__set_commands] )) ||
+_Rustique__help__config__table__set_commands() {
+    local commands; commands=(
+'list:Modify the List commands display table' \
+'search:Modify the Search commands display table' \
+    )
+    _describe -t commands 'Rustique help config table set commands' commands "$@"
+}
+(( $+functions[_Rustique__help__config__table__set__list_commands] )) ||
+_Rustique__help__config__table__set__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique help config table set list commands' commands "$@"
+}
+(( $+functions[_Rustique__help__config__table__set__search_commands] )) ||
+_Rustique__help__config__table__set__search_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique help config table set search commands' commands "$@"
+}
+(( $+functions[_Rustique__help__delete_commands] )) ||
+_Rustique__help__delete_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique help delete commands' commands "$@"
+}
+(( $+functions[_Rustique__help__download_commands] )) ||
+_Rustique__help__download_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique help download commands' commands "$@"
+}
+(( $+functions[_Rustique__help__help_commands] )) ||
+_Rustique__help__help_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique help help commands' commands "$@"
+}
+(( $+functions[_Rustique__help__info_commands] )) ||
+_Rustique__help__info_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique help info commands' commands "$@"
+}
+(( $+functions[_Rustique__help__install_commands] )) ||
+_Rustique__help__install_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique help install commands' commands "$@"
+}
+(( $+functions[_Rustique__help__list_commands] )) ||
+_Rustique__help__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique help list commands' commands "$@"
+}
+(( $+functions[_Rustique__help__misc_commands] )) ||
+_Rustique__help__misc_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique help misc commands' commands "$@"
+}
+(( $+functions[_Rustique__help__modpack_commands] )) ||
+_Rustique__help__modpack_commands() {
+    local commands; commands=(
+'create:Create a new modpack' \
+'install:Installing a modpack is like installing a mod, except it is treated differently with Rustique' \
+'update:Update a specific modpack, you *can* use the normal way to update, but this command checks the modpacks page for updates instead of individual mods themselves' \
+'enable:Enabling a modpack starts by moving the existing Mods directory *if not a modpack itself* to ~/.config/rustique/modpacks/backup/date-time/{Mods,ModData,ModConfig}' \
+'disable:Disabling a modpack does the opposite of enable. First it moves the modpack back to its modpack directory, then moves the most recently moved \`Mods-date\` folder back into place ~/.config/VintagestoryData/Mods5' \
+'delete:Delete a modpack by its id (alias)' \
+'sync:Syncs the modpacks sync file' \
+'list:Show all modpacks that are currently installed' \
+'info:Displays a nice table showing information about the modpack, including descriptions of each mod' \
+'local:Manipulate the modpacks you created' \
+    )
+    _describe -t commands 'Rustique help modpack commands' commands "$@"
+}
+(( $+functions[_Rustique__help__modpack__create_commands] )) ||
+_Rustique__help__modpack__create_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique help modpack create commands' commands "$@"
+}
+(( $+functions[_Rustique__help__modpack__delete_commands] )) ||
+_Rustique__help__modpack__delete_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique help modpack delete commands' commands "$@"
+}
+(( $+functions[_Rustique__help__modpack__disable_commands] )) ||
+_Rustique__help__modpack__disable_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique help modpack disable commands' commands "$@"
+}
+(( $+functions[_Rustique__help__modpack__enable_commands] )) ||
+_Rustique__help__modpack__enable_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique help modpack enable commands' commands "$@"
+}
+(( $+functions[_Rustique__help__modpack__info_commands] )) ||
+_Rustique__help__modpack__info_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique help modpack info commands' commands "$@"
+}
+(( $+functions[_Rustique__help__modpack__install_commands] )) ||
+_Rustique__help__modpack__install_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique help modpack install commands' commands "$@"
+}
+(( $+functions[_Rustique__help__modpack__list_commands] )) ||
+_Rustique__help__modpack__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique help modpack list commands' commands "$@"
+}
+(( $+functions[_Rustique__help__modpack__local_commands] )) ||
+_Rustique__help__modpack__local_commands() {
+    local commands; commands=(
+'list:List all locally created modpacks. It ONLY shows the modpacks you'\''ve created, use \`Rustique modpack list\` to see the modpacks you installed' \
+'delete:This feature is being worked on...' \
+    )
+    _describe -t commands 'Rustique help modpack local commands' commands "$@"
+}
+(( $+functions[_Rustique__help__modpack__local__delete_commands] )) ||
+_Rustique__help__modpack__local__delete_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique help modpack local delete commands' commands "$@"
+}
+(( $+functions[_Rustique__help__modpack__local__list_commands] )) ||
+_Rustique__help__modpack__local__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique help modpack local list commands' commands "$@"
+}
+(( $+functions[_Rustique__help__modpack__sync_commands] )) ||
+_Rustique__help__modpack__sync_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique help modpack sync commands' commands "$@"
+}
+(( $+functions[_Rustique__help__modpack__update_commands] )) ||
+_Rustique__help__modpack__update_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique help modpack update commands' commands "$@"
+}
+(( $+functions[_Rustique__help__search_commands] )) ||
+_Rustique__help__search_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique help search commands' commands "$@"
+}
+(( $+functions[_Rustique__help__self_commands] )) ||
+_Rustique__help__self_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique help self commands' commands "$@"
+}
+(( $+functions[_Rustique__help__sync_commands] )) ||
+_Rustique__help__sync_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique help sync commands' commands "$@"
+}
+(( $+functions[_Rustique__help__update_commands] )) ||
+_Rustique__help__update_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique help update commands' commands "$@"
+}
+(( $+functions[_Rustique__info_commands] )) ||
+_Rustique__info_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique info commands' commands "$@"
+}
+(( $+functions[_Rustique__install_commands] )) ||
+_Rustique__install_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique install commands' commands "$@"
+}
+(( $+functions[_Rustique__list_commands] )) ||
+_Rustique__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique list commands' commands "$@"
+}
+(( $+functions[_Rustique__misc_commands] )) ||
+_Rustique__misc_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique misc commands' commands "$@"
+}
+(( $+functions[_Rustique__modpack_commands] )) ||
+_Rustique__modpack_commands() {
+    local commands; commands=(
+'create:Create a new modpack' \
+'install:Installing a modpack is like installing a mod, except it is treated differently with Rustique' \
+'update:Update a specific modpack, you *can* use the normal way to update, but this command checks the modpacks page for updates instead of individual mods themselves' \
+'enable:Enabling a modpack starts by moving the existing Mods directory *if not a modpack itself* to ~/.config/rustique/modpacks/backup/date-time/{Mods,ModData,ModConfig}' \
+'disable:Disabling a modpack does the opposite of enable. First it moves the modpack back to its modpack directory, then moves the most recently moved \`Mods-date\` folder back into place ~/.config/VintagestoryData/Mods5' \
+'delete:Delete a modpack by its id (alias)' \
+'sync:Syncs the modpacks sync file' \
+'list:Show all modpacks that are currently installed' \
+'info:Displays a nice table showing information about the modpack, including descriptions of each mod' \
+'local:Manipulate the modpacks you created' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'Rustique modpack commands' commands "$@"
+}
+(( $+functions[_Rustique__modpack__create_commands] )) ||
+_Rustique__modpack__create_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique modpack create commands' commands "$@"
+}
+(( $+functions[_Rustique__modpack__delete_commands] )) ||
+_Rustique__modpack__delete_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique modpack delete commands' commands "$@"
+}
+(( $+functions[_Rustique__modpack__disable_commands] )) ||
+_Rustique__modpack__disable_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique modpack disable commands' commands "$@"
+}
+(( $+functions[_Rustique__modpack__enable_commands] )) ||
+_Rustique__modpack__enable_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique modpack enable commands' commands "$@"
+}
+(( $+functions[_Rustique__modpack__help_commands] )) ||
+_Rustique__modpack__help_commands() {
+    local commands; commands=(
+'create:Create a new modpack' \
+'install:Installing a modpack is like installing a mod, except it is treated differently with Rustique' \
+'update:Update a specific modpack, you *can* use the normal way to update, but this command checks the modpacks page for updates instead of individual mods themselves' \
+'enable:Enabling a modpack starts by moving the existing Mods directory *if not a modpack itself* to ~/.config/rustique/modpacks/backup/date-time/{Mods,ModData,ModConfig}' \
+'disable:Disabling a modpack does the opposite of enable. First it moves the modpack back to its modpack directory, then moves the most recently moved \`Mods-date\` folder back into place ~/.config/VintagestoryData/Mods5' \
+'delete:Delete a modpack by its id (alias)' \
+'sync:Syncs the modpacks sync file' \
+'list:Show all modpacks that are currently installed' \
+'info:Displays a nice table showing information about the modpack, including descriptions of each mod' \
+'local:Manipulate the modpacks you created' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'Rustique modpack help commands' commands "$@"
+}
+(( $+functions[_Rustique__modpack__help__create_commands] )) ||
+_Rustique__modpack__help__create_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique modpack help create commands' commands "$@"
+}
+(( $+functions[_Rustique__modpack__help__delete_commands] )) ||
+_Rustique__modpack__help__delete_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique modpack help delete commands' commands "$@"
+}
+(( $+functions[_Rustique__modpack__help__disable_commands] )) ||
+_Rustique__modpack__help__disable_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique modpack help disable commands' commands "$@"
+}
+(( $+functions[_Rustique__modpack__help__enable_commands] )) ||
+_Rustique__modpack__help__enable_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique modpack help enable commands' commands "$@"
+}
+(( $+functions[_Rustique__modpack__help__help_commands] )) ||
+_Rustique__modpack__help__help_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique modpack help help commands' commands "$@"
+}
+(( $+functions[_Rustique__modpack__help__info_commands] )) ||
+_Rustique__modpack__help__info_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique modpack help info commands' commands "$@"
+}
+(( $+functions[_Rustique__modpack__help__install_commands] )) ||
+_Rustique__modpack__help__install_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique modpack help install commands' commands "$@"
+}
+(( $+functions[_Rustique__modpack__help__list_commands] )) ||
+_Rustique__modpack__help__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique modpack help list commands' commands "$@"
+}
+(( $+functions[_Rustique__modpack__help__local_commands] )) ||
+_Rustique__modpack__help__local_commands() {
+    local commands; commands=(
+'list:List all locally created modpacks. It ONLY shows the modpacks you'\''ve created, use \`Rustique modpack list\` to see the modpacks you installed' \
+'delete:This feature is being worked on...' \
+    )
+    _describe -t commands 'Rustique modpack help local commands' commands "$@"
+}
+(( $+functions[_Rustique__modpack__help__local__delete_commands] )) ||
+_Rustique__modpack__help__local__delete_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique modpack help local delete commands' commands "$@"
+}
+(( $+functions[_Rustique__modpack__help__local__list_commands] )) ||
+_Rustique__modpack__help__local__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique modpack help local list commands' commands "$@"
+}
+(( $+functions[_Rustique__modpack__help__sync_commands] )) ||
+_Rustique__modpack__help__sync_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique modpack help sync commands' commands "$@"
+}
+(( $+functions[_Rustique__modpack__help__update_commands] )) ||
+_Rustique__modpack__help__update_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique modpack help update commands' commands "$@"
+}
+(( $+functions[_Rustique__modpack__info_commands] )) ||
+_Rustique__modpack__info_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique modpack info commands' commands "$@"
+}
+(( $+functions[_Rustique__modpack__install_commands] )) ||
+_Rustique__modpack__install_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique modpack install commands' commands "$@"
+}
+(( $+functions[_Rustique__modpack__list_commands] )) ||
+_Rustique__modpack__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique modpack list commands' commands "$@"
+}
+(( $+functions[_Rustique__modpack__local_commands] )) ||
+_Rustique__modpack__local_commands() {
+    local commands; commands=(
+'list:List all locally created modpacks. It ONLY shows the modpacks you'\''ve created, use \`Rustique modpack list\` to see the modpacks you installed' \
+'delete:This feature is being worked on...' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'Rustique modpack local commands' commands "$@"
+}
+(( $+functions[_Rustique__modpack__local__delete_commands] )) ||
+_Rustique__modpack__local__delete_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique modpack local delete commands' commands "$@"
+}
+(( $+functions[_Rustique__modpack__local__help_commands] )) ||
+_Rustique__modpack__local__help_commands() {
+    local commands; commands=(
+'list:List all locally created modpacks. It ONLY shows the modpacks you'\''ve created, use \`Rustique modpack list\` to see the modpacks you installed' \
+'delete:This feature is being worked on...' \
+'help:Print this message or the help of the given subcommand(s)' \
+    )
+    _describe -t commands 'Rustique modpack local help commands' commands "$@"
+}
+(( $+functions[_Rustique__modpack__local__help__delete_commands] )) ||
+_Rustique__modpack__local__help__delete_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique modpack local help delete commands' commands "$@"
+}
+(( $+functions[_Rustique__modpack__local__help__help_commands] )) ||
+_Rustique__modpack__local__help__help_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique modpack local help help commands' commands "$@"
+}
+(( $+functions[_Rustique__modpack__local__help__list_commands] )) ||
+_Rustique__modpack__local__help__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique modpack local help list commands' commands "$@"
+}
+(( $+functions[_Rustique__modpack__local__list_commands] )) ||
+_Rustique__modpack__local__list_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique modpack local list commands' commands "$@"
+}
+(( $+functions[_Rustique__modpack__sync_commands] )) ||
+_Rustique__modpack__sync_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique modpack sync commands' commands "$@"
+}
+(( $+functions[_Rustique__modpack__update_commands] )) ||
+_Rustique__modpack__update_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique modpack update commands' commands "$@"
+}
+(( $+functions[_Rustique__search_commands] )) ||
+_Rustique__search_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique search commands' commands "$@"
+}
+(( $+functions[_Rustique__self_commands] )) ||
+_Rustique__self_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique self commands' commands "$@"
+}
+(( $+functions[_Rustique__sync_commands] )) ||
+_Rustique__sync_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique sync commands' commands "$@"
+}
+(( $+functions[_Rustique__update_commands] )) ||
+_Rustique__update_commands() {
+    local commands; commands=()
+    _describe -t commands 'Rustique update commands' commands "$@"
+}
+
+if [ "$funcstack[1]" = "_Rustique" ]; then
+    _Rustique "$@"
+else
+    compdef _Rustique Rustique
+fi
+
+# Completion script generated. To use it:
+# Save the above output to ~/.zsh/completion/_Rustique
+# Or run: Rustique misc --gen-auto-complete zsh > ~/.zsh/completion/_Rustique
+# Then add to your .zshrc: fpath=(~/.zsh/completion $fpath)
