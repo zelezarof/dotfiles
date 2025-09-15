@@ -1,28 +1,10 @@
-# This is the configuration file for Ghostty.
-#
-# This template file has been automatically created at the following
-# path since Ghostty couldn't find any existing config files on your system:
-#
-#   /home/zhelek/.config/ghostty/config
-#
-# The template does not set any default options, since Ghostty ships
-# with sensible defaults for all options. Users should only need to set
-# options that they want to change from the default.
-#
-# Run `ghostty +show-config --default --docs` to view a list of
-# all available config options and their default values.
-#
-# Additionally, each config option is also explained in detail
-# on Ghostty's website, at https://ghostty.org/docs/config.
-
-theme = dark:rose-pine-moon,light:rose-pine-moon
-font-family = "PragmataPro Liga"
-font-style = "Regular"
-font-style-bold = "Bold"
-font-style-italic = "Italic"
-font-style-bold-italic = "Bold Italic"
-font-synthetic-style=false
-font-thicken=false
+theme = dark:GruvboxDark,light:GruvboxLight
+#font-family = "PragmataPro VF Mono Liga"
+#font-family = "PragmataPro VF Mono Regular"
+#font-family = "Rec Mono Semicasual"
+font-family = "Rec Mono Duotone"
+#font-variation = "wght=497"
+font-feature = "-calt"
 font-size = 13
 
 freetype-load-flags=no-hinting
@@ -34,24 +16,13 @@ cursor-style = underline
 cursor-style-blink = true
 mouse-hide-while-typing=true
 
-# window-padding-x = 2
-#
-# # Spacing around the equals sign does not matter.
-# # All of these are identical:
-# key=value
-# key= value
-# key =value
-# key = value
-#
-# # Any line beginning with a # is a comment. It's not possible to put
-# # a comment after a config option, since it would be interpreted as a
-# # part of the value. For example, this will have a value of "#123abc":
-# background = #123abc
-#
-# # Empty values are used to reset config keys to default.
-# key =
-#
-# # Some config options have unique syntaxes for their value,
-# # which is explained in the docs for that config option.
-# # Just for example:
-# resize-overlay-duration = 4s 200ms
+
+unfocused-split-opacity = 0.50
+mouse-hide-while-typing = true
+
+keybind = ctrl+x>2=new_split:right
+keybind = ctrl+x>3=new_split:up
+keybind = ctrl+x>h=goto_split:left
+keybind = ctrl+x>g=goto_split:right
+keybind = ctrl+x>k=goto_split:top
+keybind = ctrl+x>j=goto_split:bottom

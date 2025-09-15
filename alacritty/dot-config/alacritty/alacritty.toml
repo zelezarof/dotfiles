@@ -1,7 +1,6 @@
 [font]
-normal = { family = "Iosevka Nerd Font Mono", style = "regular"}
-bold = { family = "Iosevka Nerd Font Mono", style = "regular"}
-size = 13.5
+normal = { family = "PragmataPro VF Mono Liga", style = "regular"}
+size = 13
 
 [window]
 dimensions = { columns = 130, lines = 30 }
@@ -19,4 +18,4 @@ bindings = [
 ]
 
 [general]
-import = ["~/.config/alacritty/theme/catppuccin-mocha.toml"]
+import = ["~/.config/alacritty/theme/catppuccin-latte.toml"]
